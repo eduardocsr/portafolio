@@ -19,17 +19,11 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'marquee': 'marquee 18s linear infinite',
-                        'marquee-mobile': 'marquee 12s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
-                        },
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-50%)' },
                         }
                     }
                 }
@@ -37,7 +31,6 @@
         }
     </script>
     <style>
-        
         body {
             background-color: #060913;
             color: #f8fafc;
@@ -57,7 +50,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-strong {
-            background: rgba(15, 23, 42, 0.88);
+            background: rgba(15, 23, 42, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(99, 102, 241, 0.28);
@@ -77,7 +70,6 @@
                 box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
             }
         }
-        /* Animación de entrada al hacer scroll */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -90,8 +82,6 @@
         .timeline-dot {
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
-        /* Marquee optimizado con velocidad ágil en mobile y desktop */
-    /* Keyframes nativos para asegurar movimiento continuo en Desktop y Mobile */
         @keyframes marqueeLoop {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-50%, 0, 0); }
@@ -118,15 +108,14 @@
     <div class="fixed top-[-10%] left-[-15%] w-[320px] md:w-[500px] h-[320px] md:h-[500px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
     <div class="fixed bottom-[-10%] right-[-15%] w-[320px] md:w-[500px] h-[320px] md:h-[500px] bg-fuchsia-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Navbar fija con menú Mobile desplegable -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/80">
+    <!-- Navbar fija -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass border-b border-slate-800/80">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
             <a href="#inicio" class="text-base sm:text-lg font-extrabold tracking-tight flex items-center gap-2.5 group">
                 <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-500/20">EC</span>
                 <span>Eduardo<span class="text-indigo-400">Castillo</span></span>
             </a>
 
-            <!-- Navegación Desktop -->
             <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
                 <a href="#perfil" class="hover:text-indigo-400 transition">Perfil</a>
                 <a href="#especialidades" class="hover:text-indigo-400 transition">Qué hago</a>
@@ -135,16 +124,14 @@
                 <a href="#educacion" class="hover:text-indigo-400 transition">Cursos</a>
             </nav>
 
-            <!-- Botones Derecha -->
             <div class="flex items-center gap-2.5">
-                <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20conversar." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold transition">
+                <a id="nav-whatsapp" href="https://wa.me/51925306039" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     WhatsApp Directo
                 </a>
                 <a href="#contacto" class="hidden md:inline-flex px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition shadow-lg shadow-indigo-600/30">
                     Contactar
                 </a>
-                <!-- Botón Hamburguesa Mobile -->
                 <button id="menu-btn" aria-label="Abrir menú" class="md:hidden w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-200 active:scale-95 transition">
                     <span id="menu-icon" class="material-icons-round text-2xl">menu</span>
                 </button>
@@ -170,7 +157,7 @@
                     <span class="material-icons-round text-amber-400 text-lg">school</span> Habilidades & Cursos
                 </a>
             </div>
-            <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20conversar." target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
+            <a id="mobile-menu-wa" href="https://wa.me/51925306039" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
                 <span class="material-icons-round text-lg">chat</span> Escribir por WhatsApp
             </a>
         </div>
@@ -180,61 +167,40 @@
     <section id="inicio" class="relative pt-24 pb-12 md:pt-40 md:pb-24 z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            <!-- Columna Texto Hero -->
             <div class="lg:col-span-7">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-[11px] sm:text-xs font-semibold text-indigo-300 mb-5 border border-indigo-500/30">
                     <span class="material-icons-round text-sm text-indigo-400">verified</span>
-                    +7 años creando experiencias digitales • Lima, Perú
+                    <span id="hero-badge">+7 años creando experiencias digitales • Lima, Perú</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.15]">
-                    Diseñador Web & <span class="gradient-text">Especialista UI/UX</span>
+                    <span id="hero-title-1">Diseñador Web &</span> <span id="hero-title-grad" class="gradient-text">Especialista UI/UX</span>
                 </h1>
 
-                <!-- Perfil mejorado y sutil sobre prototipado en Figma -->
-                <p id="perfil" class="mt-5 text-sm sm:text-lg text-slate-300 leading-relaxed">
-                    Soy <strong class="text-white">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class="text-indigo-300 font-semibold">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.
-                </p>
+                <p id="perfil" class="mt-5 text-sm sm:text-lg text-slate-300 leading-relaxed"></p>
 
-                <!-- Botones adaptados: En Mobile ocupan ancho completo y cómodo al pulgar -->
                 <div class="mt-7 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                     <a href="#proyectos" class="px-6 py-3.5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition flex items-center justify-center gap-2 shadow-xl">
                         Ver Proyectos Destacados
                         <span class="material-icons-round text-base">arrow_downward</span>
                     </a>
                     <div class="grid grid-cols-2 sm:flex gap-2.5">
-                        <a href="https://wa.me/51925306039" target="_blank" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                        <a id="hero-wa" href="https://wa.me/51925306039" target="_blank" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
                             <span class="material-icons-round text-base text-emerald-400">chat</span>
                             WhatsApp
                         </a>
-                        <a href="mailto:Castillo2000edu@gmail.com" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-slate-200 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                        <a id="hero-email" href="mailto:Castillo2000edu@gmail.com" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-slate-200 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
                             <span class="material-icons-round text-base text-indigo-400">mail</span>
                             Enviar Correo
                         </a>
                     </div>
                 </div>
 
-                <!-- Micro-métricas: En mobile ya no quedan apretadas en 3 columnas estrechas, sino en tarjetas amplias y legibles -->
-                <div class="mt-8 pt-7 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div class="glass sm:bg-transparent sm:border-0 p-3.5 sm:p-0 rounded-xl">
-                        <p class="text-xl sm:text-3xl font-extrabold text-white">+7 Años</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Trayectoria continua</p>
-                    </div>
-                    <div class="glass sm:bg-transparent sm:border-0 p-3.5 sm:p-0 rounded-xl">
-                        <p class="text-xl sm:text-3xl font-extrabold text-indigo-400">Figma UI3</p>
-                        <p class="text-xs text-slate-400 mt-0.5">Prototipos & Sistemas UI</p>
-                    </div>
-                    <div class="col-span-2 sm:col-span-1 glass sm:bg-transparent sm:border-0 p-3.5 sm:p-0 rounded-xl flex sm:block items-center justify-between">
-                        <div>
-                            <p class="text-xl sm:text-3xl font-extrabold text-pink-400">Front-End</p>
-                            <p class="text-xs text-slate-400 mt-0.5">Angular, SCSS, CSS Grid & Tailwind</p>
-                        </div>
-                        <span class="sm:hidden material-icons-round text-pink-400/60 text-2xl">code</span>
-                    </div>
-                </div>
+                <!-- Micro-métricas dinámicas -->
+                <div id="hero-metricas" class="mt-8 pt-7 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
             </div>
 
-            <!-- Columna Derecha: Tarjeta Interactiva Flotante (Mockup Figma + Código) -->
+            <!-- Columna Derecha: Tarjeta Interactiva Flotante -->
             <div class="lg:col-span-5 relative">
                 <div class="glass-strong rounded-2xl p-4 sm:p-6 shadow-2xl md:animate-float relative overflow-hidden">
                     <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-800">
@@ -289,95 +255,29 @@
         </div>
     </section>
 
-    <!-- CINTA DE ESPECIALIDADES: Ágil, dinámica y con chips estilizados -->
+    <!-- CINTA DE ESPECIALIDADES DINÁMICA -->
     <div class="py-3.5 border-y border-slate-800/80 bg-slate-900/60 overflow-hidden relative z-10">
-        <div class="marquee-track gap-3 sm:gap-5 items-center px-3">
-            <!-- Bloque 1 -->
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> Diseño Centrado en el Usuario (UX/UI)</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-pink-400"></span> Prototipado Interactivo en Figma</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-400"></span> Desarrollo Front-End con Angular</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span> CSS Grid, Flexbox & SCSS</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Tailwind CSS & Bootstrap</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400"></span> WordPress & E-Commerce</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-400"></span> SEO, SEM & Google Analytics</span>
-            <!-- Bloque 2 idéntico para loop infinito fluido sin cortes -->
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> Diseño Centrado en el Usuario (UX/UI)</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-pink-400"></span> Prototipado Interactivo en Figma</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-400"></span> Desarrollo Front-End con Angular</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span> CSS Grid, Flexbox & SCSS</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Tailwind CSS & Bootstrap</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400"></span> WordPress & E-Commerce</span>
-            <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-400"></span> SEO, SEM & Google Analytics</span>
-        </div>
+        <div id="marquee-container" class="marquee-track gap-3 sm:gap-5 items-center px-3"></div>
     </div>
 
-    <!-- LO QUE APORTO (En mobile diseño horizontal limpio, en desktop 4 columnas) -->
+    <!-- LO QUE APORTO -->
     <section id="especialidades" class="py-14 md:py-20 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6">
-            <div class="max-w-2xl mb-8 md:mb-12 reveal">
+            <div class="max-w-2xl mb-8 md:mb-12 reveal active">
                 <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Valor Diferencial</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Más que páginas web: diseño productos completos</h2>
                 <p class="text-slate-400 mt-2 text-sm sm:text-base">
                     Integro el diseño visual con la lógica del desarrollo para que cada proyecto sea estético, rápido y fácil de usar.
                 </p>
             </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div class="glass p-5 sm:p-6 rounded-2xl card-interactive reveal flex sm:block items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0 sm:mb-4">
-                        <span class="material-icons-round">touch_app</span>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Prototipado en Figma</h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
-                            Diseño de flujos interactivos, Auto Layout, componentes y sistemas de diseño para validar la experiencia antes de escribir código.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="glass p-5 sm:p-6 rounded-2xl card-interactive reveal flex sm:block items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0 sm:mb-4">
-                        <span class="material-icons-round">devices</span>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Responsive & Accesibilidad</h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
-                            Interfaces adaptables (Mobile-First) con alto contraste, jerarquía clara y estándares de usabilidad para portales masivos.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="glass p-5 sm:p-6 rounded-2xl card-interactive reveal flex sm:block items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0 sm:mb-4">
-                        <span class="material-icons-round">code</span>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Arquitectura Front-End</h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
-                            Maquetación moderna empleando HTML5 semántico, CSS3 avanzado (Grid/Flexbox), SCSS, Tailwind CSS, JS y Angular.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="glass p-5 sm:p-6 rounded-2xl card-interactive reveal flex sm:block items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 sm:mb-4">
-                        <span class="material-icons-round">trending_up</span>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Optimización & Conversión</h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
-                            Estructuración pensada en SEO técnico, velocidad de carga, Google Analytics y embudos de conversión en E-Commerce.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <div id="especialidades-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"></div>
         </div>
     </section>
 
     <!-- PROYECTOS DESTACADOS -->
     <section id="proyectos" class="py-14 md:py-20 bg-slate-900/30 border-y border-slate-800/70 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-3 reveal">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-3 reveal active">
                 <div>
                     <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Portafolio Seleccionado</span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Proyectos Destacados</h2>
@@ -386,379 +286,46 @@
                     Plataformas institucionales, sistemas web y comercio electrónico desarrollados para el sector público y privado.
                 </p>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-5 sm:gap-7">
-                <!-- Proyecto 1: ONPE -->
-                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
-                    <div>
-                        <div class="p-5 sm:p-6 bg-gradient-to-br from-blue-900/80 via-indigo-950 to-slate-950 border-b border-slate-800">
-                            <div class="flex justify-between items-center gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-[11px] font-semibold">
-                                    UX/UI • Prototipado • Front-End
-                                </span>
-                                <a href="https://www.gob.pe/onpe" target="_blank" class="text-slate-300 hover:text-white transition flex items-center gap-1 text-xs font-medium shrink-0">
-                                    Web Oficial <span class="material-icons-round text-sm">open_in_new</span>
-                                </a>
-                            </div>
-                            <p class="text-[11px] uppercase tracking-wider text-indigo-300 font-semibold">Oficina Nacional de Procesos Electorales</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">ONPE – Plataforma Web Electoral & Sistemas UI</h3>
-                        </div>
-                        <div class="p-5 sm:p-6">
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Figma Prototypes</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Angular</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">HTML5 / SCSS</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Diseño Centrado en el Usuario</span>
-                    </div>
-                </article>
-
-                <!-- Proyecto 2: MINSA -->
-                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
-                    <div>
-                        <div class="p-5 sm:p-6 bg-gradient-to-br from-cyan-900/70 via-slate-900 to-slate-950 border-b border-slate-800">
-                            <div class="flex justify-between items-center gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-[11px] font-semibold">
-                                    Sistemas Web Institucionales
-                                </span>
-                                <a href="https://www.gob.pe/minsa" target="_blank" class="text-slate-300 hover:text-white transition flex items-center gap-1 text-xs font-medium shrink-0">
-                                    Web Oficial <span class="material-icons-round text-sm">open_in_new</span>
-                                </a>
-                            </div>
-                            <p class="text-[11px] uppercase tracking-wider text-cyan-300 font-semibold">Ministerio de Salud del Perú</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">MINSA – Sistema Web Institucional</h3>
-                        </div>
-                        <div class="p-5 sm:p-6">
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">UI/UX</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Maquetación Web</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">JavaScript / Ajax</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Bootstrap</span>
-                    </div>
-                </article>
-
-                <!-- Proyecto 3: Bangui Moda E-commerce -->
-                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
-                    <div>
-                        <div class="p-5 sm:p-6 bg-gradient-to-br from-fuchsia-900/70 via-slate-900 to-slate-950 border-b border-slate-800">
-                            <div class="flex justify-between items-center gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-[11px] font-semibold">
-                                    E-Commerce & Conversión
-                                </span>
-                                <span class="text-slate-400 text-xs font-medium">Sector Moda Textil</span>
-                            </div>
-                            <p class="text-[11px] uppercase tracking-wider text-pink-300 font-semibold">Emprendedora Textil S.A.C.</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Bangui Moda – Tienda E-Commerce</h3>
-                        </div>
-                        <div class="p-5 sm:p-6">
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Diseño Web</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">WordPress / E-Commerce</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">SEO / Google Analytics</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Diseño Gráfico</span>
-                    </div>
-                </article>
-
-                <!-- Proyecto 4: Prístinet & OXPA -->
-                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
-                    <div>
-                        <div class="p-5 sm:p-6 bg-gradient-to-br from-purple-900/70 via-slate-900 to-slate-950 border-b border-slate-800">
-                            <div class="flex justify-between items-center gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-[11px] font-semibold">
-                                    Agencia & Productos Digitales
-                                </span>
-                                <span class="text-slate-400 text-xs font-medium">Corporativo</span>
-                            </div>
-                            <p class="text-[11px] uppercase tracking-wider text-purple-300 font-semibold">Prístinet Agencia & OXPA Perú</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Sitios Corporativos & Mejora UX/UI</h3>
-                        </div>
-                        <div class="p-5 sm:p-6">
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Prototipado UI/UX</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">HTML / CSS / JS</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Tailwind CSS</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">Marketing Digital</span>
-                    </div>
-                </article>
-            </div>
+            <div id="proyectos-grid" class="grid md:grid-cols-2 gap-5 sm:gap-7"></div>
         </div>
     </section>
 
-    <!-- EXPERIENCIA LABORAL: En Mobile aprovecha todo el ancho sin márgenes apretados -->
+    <!-- EXPERIENCIA LABORAL -->
     <section id="experiencia" class="py-14 md:py-20 relative z-10">
         <div class="max-w-5xl mx-auto px-5 sm:px-6">
-            <div class="mb-8 md:mb-12 reveal">
+            <div class="mb-8 md:mb-12 reveal active">
                 <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Trayectoria</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Experiencia Profesional</h2>
-                <p class="text-slate-400 text-xs sm:text-sm mt-1">Historial completo de servicios y cargos desempeñados (2018 – 2026).</p>
+                <p class="text-slate-400 text-xs sm:text-sm mt-1">Historial completo de servicios y cargos desempeñados.</p>
             </div>
-
-            <div class="relative md:border-l-2 md:border-slate-800 md:ml-4 md:pl-8 space-y-4 sm:space-y-6">
-
-                <!-- Bloque ONPE 2026 (Analista UX/UI) -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-indigo-500 md:border-l">
-                    <span class="hidden md:block w-4 h-4 rounded-full bg-indigo-500 absolute -left-[41px] top-6 timeline-dot"></span>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
-                            <h3 class="text-base sm:text-lg font-extrabold text-white mt-0.5">Analista UX/UI</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold">
-                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Jul – Oct 2026</span>
-                            <span class="px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">May – Jun 2026</span>
-                            <span class="px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">Ene – Abr 2026</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño de interfaces y prototipos interactivos centrados en el usuario para plataformas electorales en tres periodos consecutivos durante el 2026, asegurando accesibilidad, consistencia visual y flujos intuitivos.
-                    </p>
-                </div>
-
-                <!-- Bloque ONPE 2025 (Servicio de Diseño Gráfico) -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-purple-500 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-purple-500 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-purple-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Servicio de Diseño Gráfico</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Sep – Dic 2025</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">May – Sep 2025</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño de piezas gráficas institucionales y recursos visuales digitales para procesos electorales a nivel nacional.
-                    </p>
-                </div>
-
-                <!-- Bloque ONPE 2024 (FUNC 2024) -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-blue-500 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-blue-500 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Diseño y Desarrollo de Plataforma y Sistema Web FUNC 2024</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Jun – Nov 2024</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">Feb – Jun 2024</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño de la interfaz del sistema web funcional y desarrollo de la plataforma web para el proceso electoral peruano 2024.
-                    </p>
-                </div>
-
-                <!-- OXPA PERU S.A.C. -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-pink-500 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-pink-500 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-pink-400">OXPA PERU S.A.C.</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Diseñador UX/UI</h3>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-[11px] font-semibold w-fit">Ene 2023 – Ene 2024</span>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Orientado al diseño de interfaces intuitivas, prototipado de flujos y mejora continua de la experiencia del usuario en productos digitales.
-                    </p>
-                </div>
-
-                <!-- MINSA -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-cyan-500 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-cyan-500 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400">Ministerio de Salud – MINSA</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Servicio de Diseño de Sistema Web</h3>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-[11px] font-semibold w-fit">Ene – Dic 2022</span>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño de interfaces para sistemas web institucionales del sector salud, estandarizando vistas y usabilidad.
-                    </p>
-                </div>
-
-                <!-- Prístinet -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-indigo-400 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-indigo-400 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-300">Prístinet – Agencia de Comunicación</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Diseñador Web</h3>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-[11px] font-semibold w-fit">Jul 2020 – Dic 2021</span>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño y desarrollo de sitios web corporativos y comerciales para clientes de la agencia en Lima.
-                    </p>
-                </div>
-
-                <!-- Bangui Moda -->
-                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive reveal border-l-4 border-l-slate-500 md:border-l">
-                    <span class="hidden md:block w-3.5 h-3.5 rounded-full bg-slate-500 absolute -left-[40px] top-6"></span>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Bangui Moda – Emprendedora Textil S.A.C.</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">Diseñador Web</h3>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-[11px] font-semibold w-fit">Jul 2018 – Jun 2020</span>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                        Diseño, implementación y mantenimiento del sitio web y tienda online de moda.
-                    </p>
-                </div>
-
-            </div>
+            <div id="experiencia-list" class="relative md:border-l-2 md:border-slate-800 md:ml-4 md:pl-8 space-y-4 sm:space-y-6"></div>
         </div>
     </section>
 
-    <!-- HABILIDADES Y EDUCACIÓN / CERTIFICACIONES -->
+    <!-- HABILIDADES Y EDUCACIÓN -->
     <section id="educacion" class="py-14 md:py-20 bg-slate-900/30 border-t border-slate-800/70 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12">
-
-            <!-- Columna Habilidades (5 cols) -->
-            <div class="lg:col-span-5 space-y-4 sm:space-y-5 reveal">
+            <div class="lg:col-span-5 space-y-4 sm:space-y-5 reveal active">
                 <div>
                     <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Stack Técnico</span>
                     <h2 class="text-2xl font-extrabold mt-1.5">Habilidades & Herramientas</h2>
                 </div>
-
-                <div class="glass p-5 rounded-2xl space-y-3.5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-2">
-                        <span class="material-icons-round text-base">layers</span> Diseño Web, UI/UX & Prototipado
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 text-xs font-semibold">Figma (Prototipado & UI3)</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Diseño Centrado en el Usuario</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">UI/UX</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Wireframing & Design Systems</span>
-                    </div>
-                </div>
-
-                <div class="glass p-5 rounded-2xl space-y-3.5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-2">
-                        <span class="material-icons-round text-base">terminal</span> Front-End & Desarrollo Web
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200 text-xs font-semibold">Angular</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200 text-xs font-semibold">Tailwind CSS</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">HTML5</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">CSS3 / SCSS (Grid & Flexbox)</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">JavaScript</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Ajax</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Bootstrap</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">WordPress & PHP</span>
-                    </div>
-                </div>
-
-                <div class="glass p-5 rounded-2xl space-y-3.5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-pink-400 flex items-center gap-2">
-                        <span class="material-icons-round text-base">campaign</span> Marketing Digital & Diseño Gráfico
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">SEO</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">SEM / Google Ads</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Google Analytics</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Redes Sociales & Email Marketing</span>
-                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Photoshop, Illustrator & InDesign</span>
-                    </div>
-                </div>
+                <div id="habilidades-list" class="space-y-4"></div>
             </div>
 
-            <!-- Columna Educación y Cursos (7 cols) -->
-            <div class="lg:col-span-7 reveal">
+            <div class="lg:col-span-7 reveal active">
                 <div class="mb-5">
                     <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Formación & Certificaciones</span>
                     <h2 class="text-2xl font-extrabold mt-1.5">Educación y Cursos Especializados</h2>
                 </div>
-
-                <div class="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
-                    <!-- Destacado 2026 -->
-                    <div class="sm:col-span-2 glass p-4 sm:p-5 rounded-2xl border-l-4 border-l-indigo-500 flex items-center justify-between gap-3">
-                        <div>
-                            <span class="text-[11px] font-bold text-indigo-400 uppercase">Especialización Reciente • Udemy</span>
-                            <h3 class="font-bold text-white text-sm sm:text-base mt-0.5">Curso Figma 2026 y Diseño Web</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">9 de julio de 2026 • 17.5 horas</p>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold shrink-0">2026</span>
-                    </div>
-
-                    <!-- Título Técnico -->
-                    <div class="sm:col-span-2 glass p-4 sm:p-5 rounded-2xl border-l-4 border-l-emerald-500 flex items-center justify-between gap-3">
-                        <div>
-                            <span class="text-[11px] font-bold text-emerald-400 uppercase">Título Profesional • IESTPFFAA</span>
-                            <h3 class="font-bold text-white text-sm sm:text-base mt-0.5">Profesional Técnico en Computación e Informática</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">Instituto de Educación Superior Tecnológico Público de las Fuerzas Armadas</p>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold shrink-0">Dic 2020</span>
-                    </div>
-
-                    <!-- Cursos Udemy y PROMPERU -->
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Diseño UX: Experiencia de Usuario UX/UI + Figma 2023</h4>
-                        <p class="text-xs text-slate-400 mt-1">Duración: 22.5 horas</p>
-                    </div>
-
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Master en CSS3 Avanzado: Maqueta 3 sitios web profesionales</h4>
-                        <p class="text-xs text-slate-400 mt-1">Duración: 27 horas</p>
-                    </div>
-
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Máster en PHP 8, POO, MVC, MySQL, Laravel 8, CodeIgniter 4</h4>
-                        <p class="text-xs text-slate-400 mt-1">Duración: 62.5 horas</p>
-                    </div>
-
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 12 May 2021</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Máster en Front-End: Crea Temas para WordPress, PHP, Angular</h4>
-                        <p class="text-xs text-slate-400 mt-1">Duración: 31 horas</p>
-                    </div>
-
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 23 Ene 2020</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Adobe Photoshop, Illustrator, InDesign (Tutos minute)</h4>
-                        <p class="text-xs text-slate-400 mt-1">Duración: 2.5 horas</p>
-                    </div>
-
-                    <div class="glass p-4 rounded-xl card-interactive">
-                        <p class="text-xs text-pink-400 font-semibold">PROMPERÚ • Feb – Mar 2019</p>
-                        <h4 class="font-bold text-sm text-white mt-1">Programa de Marketing Digital</h4>
-                        <p class="text-xs text-slate-400 mt-1">Formación especializada • 45 horas</p>
-                    </div>
-                </div>
+                <div id="educacion-grid" class="grid sm:grid-cols-2 gap-3.5 sm:gap-4"></div>
             </div>
-
         </div>
     </section>
 
     <!-- FOOTER / CONTACTO -->
     <footer id="contacto" class="py-16 md:py-20 border-t border-slate-800/90 bg-slate-950/90 relative z-10">
-        <div class="max-w-4xl mx-auto px-5 sm:px-6 text-center reveal">
+        <div class="max-w-4xl mx-auto px-5 sm:px-6 text-center reveal active">
             <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-widest">
                 Contacto Directo
             </span>
@@ -770,30 +337,35 @@
             </p>
 
             <div class="mt-7 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte." target="_blank" class="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25">
+                <a id="footer-wa" href="https://wa.me/51925306039" target="_blank" class="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25">
                     <span class="material-icons-round text-lg">chat</span>
-                    WhatsApp: +51 925 306 039
+                    <span id="footer-wa-text">WhatsApp: +51 925 306 039</span>
                 </a>
-                <a href="mailto:Castillo2000edu@gmail.com" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25">
+                <a id="footer-email" href="mailto:Castillo2000edu@gmail.com" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25">
                     <span class="material-icons-round text-lg">email</span>
-                    Castillo2000edu@gmail.com
+                    <span id="footer-email-text">Castillo2000edu@gmail.com</span>
                 </a>
-                <a href="https://github.com/eduardocsr" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-800 text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+                <a id="footer-github" href="https://github.com/eduardocsr" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-800 text-white font-semibold text-sm transition flex items-center justify-center gap-2">
                     <span class="material-icons-round text-lg text-slate-300">code</span>
                     GitHub (@eduardocsr)
                 </a>
             </div>
 
             <div class="mt-10 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-                <p>📍 Las Cascadas – Santa Anita, Lima, Perú</p>
-                <p>© 2026 Ruitor Eduardo Castillo Salazar • Diseñador Web & UI/UX</p>
+                <p id="footer-ubicacion">📍 Las Cascadas – Santa Anita, Lima, Perú</p>
+                <div class="flex items-center gap-3">
+                    <p>© 2026 <span id="footer-nombre">Ruitor Eduardo Castillo Salazar</span> • Diseñador Web & UI/UX</p>
+                    <button onclick="openAdminModal()" title="Abrir Panel Administrable (Atajo: Alt + A)" class="text-slate-700 hover:text-indigo-400 transition flex items-center">
+                        <span class="material-icons-round text-sm">settings</span>
+                    </button>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- BARRA INFERIOR FLOTANTE SOLO PARA MOBILE (Thumb-friendly UX) -->
-    <div class="md:hidden fixed bottom-3 left-4 right-4 z-50 glass-strong rounded-2xl p-2 flex items-center justify-between gap-2 shadow-2xl border border-slate-700/80">
-        <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20web." target="_blank" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+    <!-- BARRA INFERIOR FLOTANTE SOLO PARA MOBILE -->
+    <div class="md:hidden fixed bottom-3 left-4 right-4 z-40 glass-strong rounded-2xl p-2 flex items-center justify-between gap-2 shadow-2xl border border-slate-700/80">
+        <a id="bottom-wa" href="https://wa.me/51925306039" target="_blank" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5">
             <span class="material-icons-round text-base">chat</span>
             WhatsApp
         </a>
@@ -801,13 +373,972 @@
             <span class="material-icons-round text-base">layers</span>
             Proyectos
         </a>
-        <a href="mailto:Castillo2000edu@gmail.com" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center shrink-0">
+        <a id="bottom-email" href="mailto:Castillo2000edu@gmail.com" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center shrink-0">
             <span class="material-icons-round text-base">mail</span>
         </a>
     </div>
 
-    <!-- Scripts para Menú Mobile y Animaciones Scroll -->
+    <!-- ========================================================================= -->
+    <!-- PANEL ADMINISTRABLE VISUAL (MODAL OCULTO: Se abre con ?admin, #admin o ⚙️) -->
+    <!-- ========================================================================= -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="glass-strong w-full max-w-5xl max-h-[92vh] rounded-2xl border border-indigo-500/40 shadow-2xl flex flex-col overflow-hidden">
+            
+            <!-- Header del CMS -->
+            <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+                        <span class="material-icons-round text-lg">tune</span>
+                    </span>
+                    <div>
+                        <h3 class="text-sm sm:text-base font-extrabold text-white">Panel Administrable del Portafolio</h3>
+                        <p class="text-[11px] text-slate-400">Edita en vivo y descarga tu <code class="text-indigo-300">datos.json</code> o publícalo directo a GitHub</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+
+            <!-- Tabs del CMS -->
+            <div class="px-5 pt-3 border-b border-slate-800 flex gap-2 overflow-x-auto bg-slate-900/50 text-xs font-bold">
+                <button onclick="switchAdminTab('tab-perfil')" id="btn-tab-perfil" class="admin-tab px-4 py-2.5 rounded-t-lg bg-indigo-600 text-white">1. Perfil & Contacto</button>
+                <button onclick="switchAdminTab('tab-proyectos')" id="btn-tab-proyectos" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">2. Proyectos</button>
+                <button onclick="switchAdminTab('tab-experiencia')" id="btn-tab-experiencia" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">3. Experiencia</button>
+                <button onclick="switchAdminTab('tab-educacion')" id="btn-tab-educacion" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">4. Cursos & Habilidades</button>
+                <button onclick="switchAdminTab('tab-github')" id="btn-tab-github" class="admin-tab px-4 py-2.5 rounded-t-lg text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                    <span class="material-icons-round text-sm">cloud_upload</span> Publicar en GitHub
+                </button>
+            </div>
+
+            <!-- Cuerpo de Formularios -->
+            <div class="p-5 overflow-y-auto flex-1 space-y-6 text-xs sm:text-sm">
+
+                <!-- TAB 1: PERFIL -->
+                <div id="tab-perfil" class="admin-panel space-y-4">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Badge Superior</label>
+                            <input id="adm-badge" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Nombre Completo</label>
+                            <input id="adm-nombre" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Título Principal (Blanco)</label>
+                            <input id="adm-titulo1" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Título Gradiente (Color)</label>
+                            <input id="adm-titulograd" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Biografía / Sobre Mí (Acepta texto o etiquetas &lt;strong&gt;)</label>
+                        <textarea id="adm-bio" rows="4" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none"></textarea>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp (solo números, ej: 51925306039)</label>
+                            <input id="adm-wa" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Teléfono a mostrar</label>
+                            <input id="adm-tel" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Correo Electrónico</label>
+                            <input id="adm-email" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: PROYECTOS -->
+                <div id="tab-proyectos" class="admin-panel hidden space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-slate-400 text-xs">Agrega, edita o elimina los proyectos de tu portafolio:</p>
+                        <button onclick="addProyecto()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
+                            <span class="material-icons-round text-sm">add</span> Nuevo Proyecto
+                        </button>
+                    </div>
+                    <div id="adm-proyectos-list" class="space-y-4"></div>
+                </div>
+
+                <!-- TAB 3: EXPERIENCIA -->
+                <div id="tab-experiencia" class="admin-panel hidden space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-slate-400 text-xs">Administra tu historial laboral (separar varios periodos con coma):</p>
+                        <button onclick="addExperiencia()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
+                            <span class="material-icons-round text-sm">add</span> Nueva Experiencia
+                        </button>
+                    </div>
+                    <div id="adm-experiencia-list" class="space-y-4"></div>
+                </div>
+
+                <!-- TAB 4: EDUCACIÓN Y CURSOS -->
+                <div id="tab-educacion" class="admin-panel hidden space-y-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-slate-400 text-xs">Administra tus certificaciones, cursos y títulos:</p>
+                        <button onclick="addEducacion()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
+                            <span class="material-icons-round text-sm">add</span> Nuevo Curso / Título
+                        </button>
+                    </div>
+                    <div id="adm-educacion-list" class="space-y-3"></div>
+                </div>
+
+                <!-- TAB 5: PUBLICAR DIRECTO EN GITHUB (SIN BASE DE DATOS) -->
+                <div id="tab-github" class="admin-panel hidden space-y-4">
+                    <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-slate-200 space-y-2">
+                        <h4 class="font-bold text-white flex items-center gap-2">
+                            <span class="material-icons-round text-indigo-400">info</span>
+                            ¿Cómo guardar los cambios gratis en tu GitHub?
+                        </h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Tienes <strong>2 opciones gratuitas</strong>:
+                            <br>1. <strong>Sin configurar nada:</strong> Haz clic abajo en <em>"Descargar datos.json"</em> y sube ese archivo a tu repositorio de GitHub.
+                            <br>2. <strong>Con 1 solo clic desde aquí:</strong> Coloca tu usuario, repositorio y un <em>Personal Access Token</em> de GitHub (se guarda solo en tu navegador) y presiona <em>"Publicar directo en GitHub"</em>.
+                        </p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Usuario de GitHub</label>
+                            <input id="gh-owner" type="text" value="eduardocsr" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Nombre del Repositorio</label>
+                            <input id="gh-repo" type="text" value="portafolio" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Rama (Branch)</label>
+                            <input id="gh-branch" type="text" value="main" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">GitHub Personal Access Token (Opcional para publicar con 1 clic)</label>
+                        <input id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <button onclick="pushToGitHub()" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg">
+                            <span class="material-icons-round text-base">cloud_upload</span>
+                            Guardar y Publicar directo en GitHub
+                        </button>
+                        <span id="gh-status" class="text-xs font-semibold text-slate-300"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer de Acciones del CMS -->
+            <div class="px-5 py-4 border-t border-slate-800 bg-slate-900/95 flex flex-wrap items-center justify-between gap-3">
+                <button onclick="resetLocalData()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 text-xs font-semibold transition">
+                    Restaurar original
+                </button>
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button onclick="applyAdminChanges()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1.5">
+                        <span class="material-icons-round text-sm text-indigo-400">visibility</span>
+                        Previsualizar en vivo
+                    </button>
+                    <button onclick="downloadDatosJSON()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
+                        <span class="material-icons-round text-sm">download</span>
+                        Descargar datos.json
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- SCRIPT MOTOR DE RENDERIZADO DINÁMICO + CMS SIN BASE DE DATOS              -->
+    <!-- ========================================================================= -->
     <script>
+        // Respaldo inicial embebido por si se abre localmente con doble clic (file://)
+        const DEFAULT_DATA = {
+  "perfil": {
+    "badge": "+7 años creando experiencias digitales • Lima, Perú",
+    "titulo_parte1": "Diseñador Web &",
+    "titulo_gradiente": "Especialista UI/UX",
+    "nombre_completo": "Ruitor Eduardo Castillo Salazar",
+    "bio": "Soy <strong class=\"text-white\">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class=\"text-indigo-300 font-semibold\">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.",
+    "whatsapp": "51925306039",
+    "telefono_mostrar": "+51 925 306 039",
+    "email": "Castillo2000edu@gmail.com",
+    "github": "https://github.com/eduardocsr",
+    "ubicacion": "Las Cascadas – Santa Anita, Lima, Perú",
+    "metricas": [
+      {
+        "valor": "+7 Años",
+        "etiqueta": "Trayectoria continua"
+      },
+      {
+        "valor": "Figma UI3",
+        "etiqueta": "Prototipos & Sistemas UI"
+      },
+      {
+        "valor": "Front-End",
+        "etiqueta": "Angular, SCSS, CSS Grid & Tailwind"
+      }
+    ]
+  },
+  "marquee": [
+    {
+      "texto": "Diseño Centrado en el Usuario (UX/UI)",
+      "color": "bg-indigo-400"
+    },
+    {
+      "texto": "Prototipado Interactivo en Figma",
+      "color": "bg-pink-400"
+    },
+    {
+      "texto": "Desarrollo Front-End con Angular",
+      "color": "bg-purple-400"
+    },
+    {
+      "texto": "CSS Grid, Flexbox & SCSS",
+      "color": "bg-blue-400"
+    },
+    {
+      "texto": "Tailwind CSS & Bootstrap",
+      "color": "bg-emerald-400"
+    },
+    {
+      "texto": "WordPress & E-Commerce",
+      "color": "bg-amber-400"
+    },
+    {
+      "texto": "SEO, SEM & Google Analytics",
+      "color": "bg-rose-400"
+    }
+  ],
+  "especialidades": [
+    {
+      "icono": "touch_app",
+      "color": "indigo",
+      "titulo": "Prototipado en Figma",
+      "descripcion": "Diseño de flujos interactivos, Auto Layout, componentes y sistemas de diseño para validar la experiencia antes de escribir código."
+    },
+    {
+      "icono": "devices",
+      "color": "purple",
+      "titulo": "Responsive & Accesibilidad",
+      "descripcion": "Interfaces adaptables (Mobile-First) con alto contraste, jerarquía clara y estándares de usabilidad para portales masivos."
+    },
+    {
+      "icono": "code",
+      "color": "pink",
+      "titulo": "Arquitectura Front-End",
+      "descripcion": "Maquetación moderna empleando HTML5 semántico, CSS3 avanzado (Grid/Flexbox), SCSS, Tailwind CSS, JS y Angular."
+    },
+    {
+      "icono": "trending_up",
+      "color": "emerald",
+      "titulo": "Optimización & Conversión",
+      "descripcion": "Estructuración pensada en SEO técnico, velocidad de carga, Google Analytics y embudos de conversión en E-Commerce."
+    }
+  ],
+  "proyectos": [
+    {
+      "categoria": "UX/UI • Prototipado • Front-End",
+      "entidad": "Oficina Nacional de Procesos Electorales",
+      "titulo": "ONPE – Plataforma Web Electoral & Sistemas UI",
+      "descripcion": "Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.",
+      "url": "https://www.gob.pe/onpe",
+      "texto_url": "Web Oficial",
+      "tema": "blue",
+      "tags": [
+        "Figma Prototypes",
+        "Angular",
+        "HTML5 / SCSS",
+        "Diseño Centrado en el Usuario"
+      ]
+    },
+    {
+      "categoria": "Sistemas Web Institucionales",
+      "entidad": "Ministerio de Salud del Perú",
+      "titulo": "MINSA – Sistema Web Institucional",
+      "descripcion": "Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.",
+      "url": "https://www.gob.pe/minsa",
+      "texto_url": "Web Oficial",
+      "tema": "cyan",
+      "tags": [
+        "UI/UX",
+        "Maquetación Web",
+        "JavaScript / Ajax",
+        "Bootstrap"
+      ]
+    },
+    {
+      "categoria": "E-Commerce & Conversión",
+      "entidad": "Emprendedora Textil S.A.C.",
+      "titulo": "Bangui Moda – Tienda E-Commerce",
+      "descripcion": "Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.",
+      "url": "",
+      "texto_url": "Sector Moda Textil",
+      "tema": "pink",
+      "tags": [
+        "Diseño Web",
+        "WordPress / E-Commerce",
+        "SEO / Google Analytics",
+        "Diseño Gráfico"
+      ]
+    },
+    {
+      "categoria": "Agencia & Productos Digitales",
+      "entidad": "Prístinet Agencia & OXPA Perú",
+      "titulo": "Sitios Corporativos & Mejora UX/UI",
+      "descripcion": "Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.",
+      "url": "",
+      "texto_url": "Corporativo",
+      "tema": "purple",
+      "tags": [
+        "Prototipado UI/UX",
+        "HTML / CSS / JS",
+        "Tailwind CSS",
+        "Marketing Digital"
+      ]
+    }
+  ],
+  "experiencia": [
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Analista UX/UI",
+      "periodos": [
+        "Jul – Oct 2026",
+        "May – Jun 2026",
+        "Ene – Abr 2026"
+      ],
+      "descripcion": "Diseño de interfaces y prototipos interactivos centrados en el usuario para plataformas electorales en tres periodos consecutivos durante el 2026, asegurando accesibilidad, consistencia visual y flujos intuitivos.",
+      "color": "indigo",
+      "destacado": true
+    },
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Servicio de Diseño Gráfico",
+      "periodos": [
+        "Sep – Dic 2025",
+        "May – Sep 2025"
+      ],
+      "descripcion": "Diseño de piezas gráficas institucionales y recursos visuales digitales para procesos electorales a nivel nacional.",
+      "color": "purple",
+      "destacado": false
+    },
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Diseño y Desarrollo de Plataforma y Sistema Web FUNC 2024",
+      "periodos": [
+        "Jun – Nov 2024",
+        "Feb – Jun 2024"
+      ],
+      "descripcion": "Diseño de la interfaz del sistema web funcional y desarrollo de la plataforma web para el proceso electoral peruano 2024.",
+      "color": "blue",
+      "destacado": false
+    },
+    {
+      "empresa": "OXPA PERU S.A.C.",
+      "cargo": "Diseñador UX/UI",
+      "periodos": [
+        "Ene 2023 – Ene 2024"
+      ],
+      "descripcion": "Orientado al diseño de interfaces intuitivas, prototipado de flujos y mejora continua de la experiencia del usuario en productos digitales.",
+      "color": "pink",
+      "destacado": false
+    },
+    {
+      "empresa": "Ministerio de Salud – MINSA",
+      "cargo": "Servicio de Diseño de Sistema Web",
+      "periodos": [
+        "Ene – Dic 2022"
+      ],
+      "descripcion": "Diseño de interfaces para sistemas web institucionales del sector salud, estandarizando vistas y usabilidad.",
+      "color": "cyan",
+      "destacado": false
+    },
+    {
+      "empresa": "Prístinet – Agencia de Comunicación",
+      "cargo": "Diseñador Web",
+      "periodos": [
+        "Jul 2020 – Dic 2021"
+      ],
+      "descripcion": "Diseño y desarrollo de sitios web corporativos y comerciales para clientes de la agencia en Lima.",
+      "color": "indigo",
+      "destacado": false
+    },
+    {
+      "empresa": "Bangui Moda – Emprendedora Textil S.A.C.",
+      "cargo": "Diseñador Web",
+      "periodos": [
+        "Jul 2018 – Jun 2020"
+      ],
+      "descripcion": "Diseño, implementación y mantenimiento del sitio web y tienda online de moda.",
+      "color": "slate",
+      "destacado": false
+    }
+  ],
+  "habilidades": [
+    {
+      "grupo": "Diseño Web, UI/UX & Prototipado",
+      "icono": "layers",
+      "color": "indigo",
+      "items": [
+        "Figma (Prototipado & UI3)",
+        "Diseño Centrado en el Usuario",
+        "UI/UX",
+        "Wireframing & Design Systems"
+      ]
+    },
+    {
+      "grupo": "Front-End & Desarrollo Web",
+      "icono": "terminal",
+      "color": "purple",
+      "items": [
+        "Angular",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS3 / SCSS (Grid & Flexbox)",
+        "JavaScript",
+        "Ajax",
+        "Bootstrap",
+        "WordPress & PHP"
+      ]
+    },
+    {
+      "grupo": "Marketing Digital & Diseño Gráfico",
+      "icono": "campaign",
+      "color": "pink",
+      "items": [
+        "SEO",
+        "SEM / Google Ads",
+        "Google Analytics",
+        "Redes Sociales & Email Marketing",
+        "Photoshop, Illustrator & InDesign"
+      ]
+    }
+  ],
+  "educacion": [
+    {
+      "subtitulo": "Especialización Reciente • Udemy",
+      "titulo": "Curso Figma 2026 y Diseño Web",
+      "detalle": "9 de julio de 2026 • 17.5 horas",
+      "badge": "2026",
+      "destacado": "indigo"
+    },
+    {
+      "subtitulo": "Título Profesional • IESTPFFAA",
+      "titulo": "Profesional Técnico en Computación e Informática",
+      "detalle": "Instituto de Educación Superior Tecnológico Público de las Fuerzas Armadas",
+      "badge": "Dic 2020",
+      "destacado": "emerald"
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Diseño UX: Experiencia de Usuario UX/UI + Figma 2023",
+      "detalle": "Duración: 22.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Master en CSS3 Avanzado: Maqueta 3 sitios web profesionales",
+      "detalle": "Duración: 27 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Máster en PHP 8, POO, MVC, MySQL, Laravel 8, CodeIgniter 4",
+      "detalle": "Duración: 62.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 12 May 2021",
+      "titulo": "Máster en Front-End: Crea Temas para WordPress, PHP, Angular",
+      "detalle": "Duración: 31 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 23 Ene 2020",
+      "titulo": "Adobe Photoshop, Illustrator, InDesign (Tutos minute)",
+      "detalle": "Duración: 2.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "PROMPERÚ • Feb – Mar 2019",
+      "titulo": "Programa de Marketing Digital",
+      "detalle": "Formación especializada • 45 horas",
+      "badge": "",
+      "destacado": "pink"
+    }
+  ]
+};
+
+        let portfolioData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+        // 1. Cargar datos desde datos.json (si está en GitHub Pages) o usar caché local de prueba
+        async function loadPortfolio() {
+            try {
+                const res = await fetch('./datos.json?t=' + Date.now());
+                if (res.ok) {
+                    portfolioData = await res.json();
+                }
+            } catch (e) {
+                const savedLocal = localStorage.getItem('eduardo_portfolio_draft');
+                if (savedLocal) {
+                    portfolioData = JSON.parse(savedLocal);
+                }
+            }
+            renderPortfolio(portfolioData);
+            checkAdminUrl();
+        }
+
+        // 2. Renderizar todas las secciones manteniendo exactamente el mismo diseño
+        function renderPortfolio(data) {
+            const p = data.perfil;
+            document.getElementById('hero-badge').textContent = p.badge;
+            document.getElementById('hero-title-1').textContent = p.titulo_parte1;
+            document.getElementById('hero-title-grad').textContent = p.titulo_gradiente;
+            document.getElementById('perfil').innerHTML = p.bio;
+
+            const waUrl = `https://wa.me/${p.whatsapp}?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20conversar.`;
+            ['nav-whatsapp', 'mobile-menu-wa', 'hero-wa', 'footer-wa', 'bottom-wa'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.href = waUrl;
+            });
+            ['hero-email', 'footer-email', 'bottom-email'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.href = `mailto:${p.email}`;
+            });
+
+            document.getElementById('footer-wa-text').textContent = `WhatsApp: ${p.telefono_mostrar}`;
+            document.getElementById('footer-email-text').textContent = p.email;
+            document.getElementById('footer-github').href = p.github;
+            document.getElementById('footer-ubicacion').textContent = `📍 ${p.ubicacion}`;
+            document.getElementById('footer-nombre').textContent = p.nombre_completo;
+
+            // Métricas Hero
+            const mColors = ['text-white', 'text-indigo-400', 'text-pink-400'];
+            document.getElementById('hero-metricas').innerHTML = p.metricas.map((m, idx) => {
+                const isLast = idx === 2;
+                return `
+                <div class="${isLast ? 'col-span-2 sm:col-span-1 flex sm:block items-center justify-between' : ''} glass sm:bg-transparent sm:border-0 p-3.5 sm:p-0 rounded-xl">
+                    <div>
+                        <p class="text-xl sm:text-3xl font-extrabold ${mColors[idx] || 'text-white'}">${m.valor}</p>
+                        <p class="text-xs text-slate-400 mt-0.5">${m.etiqueta}</p>
+                    </div>
+                    ${isLast ? '<span class="sm:hidden material-icons-round text-pink-400/60 text-2xl">code</span>' : ''}
+                </div>`;
+            }).join('');
+
+            // Marquee duplicado para loop infinito
+            const marqueeItems = [...data.marquee, ...data.marquee];
+            document.getElementById('marquee-container').innerHTML = marqueeItems.map(item => `
+                <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full ${item.color}"></span> ${item.texto}
+                </span>
+            `).join('');
+
+            // Especialidades
+            const espColorMap = {
+                indigo: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400',
+                purple: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
+                pink: 'bg-pink-500/15 border-pink-500/30 text-pink-400',
+                emerald: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+            };
+            document.getElementById('especialidades-grid').innerHTML = data.especialidades.map(e => `
+                <div class="glass p-5 sm:p-6 rounded-2xl card-interactive flex sm:block items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl ${espColorMap[e.color] || espColorMap.indigo} border flex items-center justify-center shrink-0 sm:mb-4">
+                        <span class="material-icons-round">${e.icono}</span>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">${e.titulo}</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">${e.descripcion}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Proyectos
+            const projThemes = {
+                blue: { grad: 'from-blue-900/80 via-indigo-950 to-slate-950', badge: 'bg-indigo-500/20 border-indigo-400/30 text-indigo-300', sub: 'text-indigo-300' },
+                cyan: { grad: 'from-cyan-900/70 via-slate-900 to-slate-950', badge: 'bg-cyan-500/20 border-cyan-400/30 text-cyan-300', sub: 'text-cyan-300' },
+                pink: { grad: 'from-fuchsia-900/70 via-slate-900 to-slate-950', badge: 'bg-pink-500/20 border-pink-400/30 text-pink-300', sub: 'text-pink-300' },
+                purple: { grad: 'from-purple-900/70 via-slate-900 to-slate-950', badge: 'bg-purple-500/20 border-purple-400/30 text-purple-300', sub: 'text-purple-300' }
+            };
+            document.getElementById('proyectos-grid').innerHTML = data.proyectos.map(pr => {
+                const t = projThemes[pr.tema] || projThemes.blue;
+                const rightLink = pr.url
+                    ? `<a href="${pr.url}" target="_blank" class="text-slate-300 hover:text-white transition flex items-center gap-1 text-xs font-medium shrink-0">${pr.texto_url || 'Ver'} <span class="material-icons-round text-sm">open_in_new</span></a>`
+                    : `<span class="text-slate-400 text-xs font-medium">${pr.texto_url || ''}</span>`;
+                return `
+                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between">
+                    <div>
+                        <div class="p-5 sm:p-6 bg-gradient-to-br ${t.grad} border-b border-slate-800">
+                            <div class="flex justify-between items-center gap-2 mb-4">
+                                <span class="px-2.5 py-1 rounded-full ${t.badge} border text-[11px] font-semibold">${pr.categoria}</span>
+                                ${rightLink}
+                            </div>
+                            <p class="text-[11px] uppercase tracking-wider ${t.sub} font-semibold">${pr.entidad}</p>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${pr.titulo}</h3>
+                        </div>
+                        <div class="p-5 sm:p-6">
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">${pr.descripcion}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
+                        ${(pr.tags || []).map(tag => `<span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">${tag}</span>`).join('')}
+                    </div>
+                </article>`;
+            }).join('');
+
+            // Experiencia
+            const expColors = {
+                indigo: { border: 'border-l-indigo-500', dot: 'bg-indigo-500', text: 'text-indigo-400' },
+                purple: { border: 'border-l-purple-500', dot: 'bg-purple-500', text: 'text-purple-400' },
+                blue: { border: 'border-l-blue-500', dot: 'bg-blue-500', text: 'text-blue-400' },
+                pink: { border: 'border-l-pink-500', dot: 'bg-pink-500', text: 'text-pink-400' },
+                cyan: { border: 'border-l-cyan-500', dot: 'bg-cyan-500', text: 'text-cyan-400' },
+                slate: { border: 'border-l-slate-500', dot: 'bg-slate-500', text: 'text-slate-400' }
+            };
+            document.getElementById('experiencia-list').innerHTML = data.experiencia.map(ex => {
+                const c = expColors[ex.color] || expColors.indigo;
+                const badges = (ex.periodos || []).map((per, idx) => {
+                    if (ex.destacado) {
+                        const style = idx === 0
+                            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                            : 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/30';
+                        return `<span class="px-2.5 py-1 rounded-md ${style}">${per}</span>`;
+                    }
+                    return `<span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">${per}</span>`;
+                }).join('');
+
+                return `
+                <div class="relative glass p-5 sm:p-6 rounded-2xl card-interactive border-l-4 ${c.border} md:border-l">
+                    <span class="hidden md:block ${ex.destacado ? 'w-4 h-4 -left-[41px] timeline-dot' : 'w-3.5 h-3.5 -left-[40px]'} rounded-full ${c.dot} absolute top-6"></span>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider ${c.text}">${ex.empresa}</span>
+                            <h3 class="text-base sm:text-lg ${ex.destacado ? 'font-extrabold' : 'font-bold'} text-white mt-0.5">${ex.cargo}</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold">${badges}</div>
+                    </div>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">${ex.descripcion}</p>
+                </div>`;
+            }).join('');
+
+            // Habilidades
+            const habTitleColors = { indigo: 'text-indigo-400', purple: 'text-purple-400', pink: 'text-pink-400' };
+            document.getElementById('habilidades-list').innerHTML = data.habilidades.map(h => `
+                <div class="glass p-5 rounded-2xl space-y-3.5">
+                    <h3 class="text-xs font-bold uppercase tracking-wider ${habTitleColors[h.color] || 'text-indigo-400'} flex items-center gap-2">
+                        <span class="material-icons-round text-base">${h.icono}</span> ${h.grupo}
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${(h.items || []).map((item, i) => {
+                            const highlight = (h.color === 'indigo' && i === 0)
+                                ? 'bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 font-semibold'
+                                : (h.color === 'purple' && i < 2)
+                                ? 'bg-purple-500/15 border border-purple-500/30 text-purple-200 font-semibold'
+                                : 'bg-slate-800 text-slate-200 font-medium';
+                            return `<span class="px-3 py-1.5 rounded-lg ${highlight} text-xs">${item}</span>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Educación
+            document.getElementById('educacion-grid').innerHTML = data.educacion.map(ed => {
+                if (ed.badge) {
+                    const isIndigo = ed.destacado === 'indigo';
+                    return `
+                    <div class="sm:col-span-2 glass p-4 sm:p-5 rounded-2xl border-l-4 ${isIndigo ? 'border-l-indigo-500' : 'border-l-emerald-500'} flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[11px] font-bold ${isIndigo ? 'text-indigo-400' : 'text-emerald-400'} uppercase">${ed.subtitulo}</span>
+                            <h3 class="font-bold text-white text-sm sm:text-base mt-0.5">${ed.titulo}</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">${ed.detalle}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full ${isIndigo ? 'bg-indigo-500/20 text-indigo-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs font-bold shrink-0">${ed.badge}</span>
+                    </div>`;
+                }
+                return `
+                <div class="glass p-4 rounded-xl card-interactive">
+                    <p class="text-xs ${ed.destacado === 'pink' ? 'text-pink-400' : 'text-indigo-400'} font-semibold">${ed.subtitulo}</p>
+                    <h4 class="font-bold text-sm text-white mt-1">${ed.titulo}</h4>
+                    <p class="text-xs text-slate-400 mt-1">${ed.detalle}</p>
+                </div>`;
+            }).join('');
+        }
+
+        // =====================================================================
+        // FUNCIONES DEL PANEL ADMINISTRABLE (CMS)
+        // =====================================================================
+        function checkAdminUrl() {
+            if (window.location.search.includes('admin') || window.location.hash === '#admin') {
+                openAdminModal();
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.altKey && e.key.toLowerCase() === 'a') {
+                openAdminModal();
+            }
+        });
+
+        function openAdminModal() {
+            populateAdminForms();
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function switchAdminTab(tabId) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelectorAll('.admin-tab').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white');
+                b.classList.add('text-slate-400');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-indigo-600', 'text-white');
+                activeBtn.classList.remove('text-slate-400');
+            }
+        }
+
+        function populateAdminForms() {
+            const p = portfolioData.perfil;
+            document.getElementById('adm-badge').value = p.badge || '';
+            document.getElementById('adm-nombre').value = p.nombre_completo || '';
+            document.getElementById('adm-titulo1').value = p.titulo_parte1 || '';
+            document.getElementById('adm-titulograd').value = p.titulo_gradiente || '';
+            document.getElementById('adm-bio').value = p.bio || '';
+            document.getElementById('adm-wa').value = p.whatsapp || '';
+            document.getElementById('adm-tel').value = p.telefono_mostrar || '';
+            document.getElementById('adm-email').value = p.email || '';
+
+            const savedToken = localStorage.getItem('gh_cms_token');
+            if (savedToken) document.getElementById('gh-token').value = savedToken;
+
+            renderAdminProyectos();
+            renderAdminExperiencia();
+            renderAdminEducacion();
+        }
+
+        function renderAdminProyectos() {
+            document.getElementById('adm-proyectos-list').innerHTML = portfolioData.proyectos.map((pr, i) => `
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-indigo-400 text-xs">Proyecto #${i + 1}</span>
+                        <button onclick="removeProyecto(${i})" class="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1">
+                            <span class="material-icons-round text-sm">delete</span> Eliminar
+                        </button>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <input type="text" placeholder="Título del proyecto" value="${pr.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].titulo = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Cliente / Entidad" value="${pr.entidad.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].entidad = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Categoría (ej: UX/UI • Front-End)" value="${pr.categoria.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].categoria = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Enlace URL (opcional)" value="${(pr.url || '').replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].url = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                    </div>
+                    <textarea rows="2" placeholder="Descripción" onchange="portfolioData.proyectos[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">${pr.descripcion}</textarea>
+                    <input type="text" placeholder="Etiquetas separadas por coma" value="${(pr.tags || []).join(', ')}" onchange="portfolioData.proyectos[${i}].tags = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                </div>
+            `).join('');
+        }
+
+        function addProyecto() {
+            portfolioData.proyectos.unshift({
+                categoria: "UX/UI & Desarrollo Web",
+                entidad: "Nuevo Cliente",
+                titulo: "Nuevo Proyecto Digital",
+                descripcion: "Descripción del proyecto, prototipado en Figma e implementación Front-End.",
+                url: "",
+                texto_url: "Proyecto",
+                tema: "blue",
+                tags: ["Figma", "UI/UX", "Front-End"]
+            });
+            renderAdminProyectos();
+        }
+
+        function removeProyecto(i) {
+            portfolioData.proyectos.splice(i, 1);
+            renderAdminProyectos();
+        }
+
+        function renderAdminExperiencia() {
+            document.getElementById('adm-experiencia-list').innerHTML = portfolioData.experiencia.map((ex, i) => `
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-emerald-400 text-xs">Experiencia #${i + 1}</span>
+                        <button onclick="removeExperiencia(${i})" class="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1">
+                            <span class="material-icons-round text-sm">delete</span> Eliminar
+                        </button>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <input type="text" placeholder="Cargo" value="${ex.cargo.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].cargo = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Empresa / Entidad" value="${ex.empresa.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].empresa = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Fechas (separadas por coma)" value="${(ex.periodos || []).join(', ')}" onchange="portfolioData.experiencia[${i}].periodos = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                    </div>
+                    <textarea rows="2" placeholder="Descripción de funciones" onchange="portfolioData.experiencia[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">${ex.descripcion}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function addExperiencia() {
+            portfolioData.experiencia.unshift({
+                empresa: "Nombre de la Entidad o Empresa",
+                cargo: "Analista UX/UI / Diseñador Web",
+                periodos: ["2026 – Actualidad"],
+                descripcion: "Diseño de interfaces y prototipos interactivos centrados en el usuario.",
+                color: "indigo",
+                destacado: true
+            });
+            renderAdminExperiencia();
+        }
+
+        function removeExperiencia(i) {
+            portfolioData.experiencia.splice(i, 1);
+            renderAdminExperiencia();
+        }
+
+        function renderAdminEducacion() {
+            document.getElementById('adm-educacion-list').innerHTML = portfolioData.educacion.map((ed, i) => `
+                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 grid sm:grid-cols-12 gap-2.5 items-center">
+                    <input type="text" placeholder="Curso o Título" value="${ed.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].titulo = this.value" class="sm:col-span-5 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                    <input type="text" placeholder="Institución y Fecha" value="${ed.subtitulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].subtitulo = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                    <input type="text" placeholder="Duración / Detalle" value="${ed.detalle.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].detalle = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                    <button onclick="removeEducacion(${i})" class="sm:col-span-1 text-rose-400 hover:text-rose-300 flex justify-center">
+                        <span class="material-icons-round text-base">delete</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addEducacion() {
+            portfolioData.educacion.unshift({
+                subtitulo: "Udemy • 2026",
+                titulo: "Nuevo Curso o Especialización",
+                detalle: "Duración: 20 horas",
+                badge: "",
+                destacado: ""
+            });
+            renderAdminEducacion();
+        }
+
+        function removeEducacion(i) {
+            portfolioData.educacion.splice(i, 1);
+            renderAdminEducacion();
+        }
+
+        function syncFormToData() {
+            portfolioData.perfil.badge = document.getElementById('adm-badge').value;
+            portfolioData.perfil.nombre_completo = document.getElementById('adm-nombre').value;
+            portfolioData.perfil.titulo_parte1 = document.getElementById('adm-titulo1').value;
+            portfolioData.perfil.titulo_gradiente = document.getElementById('adm-titulograd').value;
+            portfolioData.perfil.bio = document.getElementById('adm-bio').value;
+            portfolioData.perfil.whatsapp = document.getElementById('adm-wa').value;
+            portfolioData.perfil.telefono_mostrar = document.getElementById('adm-tel').value;
+            portfolioData.perfil.email = document.getElementById('adm-email').value;
+            localStorage.setItem('eduardo_portfolio_draft', JSON.stringify(portfolioData));
+        }
+
+        function applyAdminChanges() {
+            syncFormToData();
+            renderPortfolio(portfolioData);
+            closeAdminModal();
+        }
+
+        function resetLocalData() {
+            localStorage.removeItem('eduardo_portfolio_draft');
+            portfolioData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            populateAdminForms();
+            renderPortfolio(portfolioData);
+        }
+
+        function downloadDatosJSON() {
+            syncFormToData();
+            renderPortfolio(portfolioData);
+            const blob = new Blob([JSON.stringify(portfolioData, null, 2)], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'datos.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Publicar directamente en GitHub vía REST API sin servidor
+        async function pushToGitHub() {
+            syncFormToData();
+            const owner = document.getElementById('gh-owner').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const branch = document.getElementById('gh-branch').value.trim() || 'main';
+            const token = document.getElementById('gh-token').value.trim();
+            const status = document.getElementById('gh-status');
+
+            if (!token) {
+                status.textContent = '⚠️ Ingresa tu Token de GitHub o usa el botón "Descargar datos.json".';
+                status.className = 'text-xs font-semibold text-amber-400';
+                return;
+            }
+
+            localStorage.setItem('gh_cms_token', token);
+            status.textContent = '⏳ Subiendo cambios a GitHub...';
+            status.className = 'text-xs font-semibold text-indigo-300';
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/datos.json`;
+                let sha = null;
+
+                const getRes = await fetch(`${apiUrl}?ref=${branch}`, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+                });
+                if (getRes.ok) {
+                    const existing = await getRes.json();
+                    sha = existing.sha;
+                }
+
+                const jsonString = JSON.stringify(portfolioData, null, 2);
+                const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'Content-Type=': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Actualizo datos del portafolio desde el Panel Administrable',
+                        content: base64Content,
+                        branch: branch,
+                        ...(sha ? { sha } : {})
+                    })
+                });
+
+                if (putRes.ok) {
+                    renderPortfolio(portfolioData);
+                    status.textContent = '✅ ¡Publicado en GitHub! En ~40 segundos se verá actualizado para todos.';
+                    status.className = 'text-xs font-semibold text-emerald-400';
+                } else {
+                    const err = await putRes.json();
+                    status.textContent = `❌ Error de GitHub: ${err.message || 'Verifica el token y permisos'}`;
+                    status.className = 'text-xs font-semibold text-rose-400';
+                }
+            } catch (err) {
+                status.textContent = '❌ Error de red al conectar con GitHub.';
+                status.className = 'text-xs font-semibold text-rose-400';
+            }
+        }
+
+        // Menú Mobile
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -824,15 +1355,7 @@
             });
         });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        loadPortfolio();
     </script>
 </body>
 </html>

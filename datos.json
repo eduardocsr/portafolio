@@ -1,0 +1,320 @@
+{
+  "perfil": {
+    "badge": "+7 años creando experiencias digitales • Lima, Perú",
+    "titulo_parte1": "Diseñador Web &",
+    "titulo_gradiente": "Especialista UI/UX",
+    "nombre_completo": "Ruitor Eduardo Castillo Salazar",
+    "bio": "Soy <strong class=\"text-white\">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class=\"text-indigo-300 font-semibold\">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.",
+    "whatsapp": "51925306039",
+    "telefono_mostrar": "+51 925 306 039",
+    "email": "Castillo2000edu@gmail.com",
+    "github": "https://github.com/eduardocsr",
+    "ubicacion": "Las Cascadas – Santa Anita, Lima, Perú",
+    "metricas": [
+      {
+        "valor": "+7 Años",
+        "etiqueta": "Trayectoria continua"
+      },
+      {
+        "valor": "Figma UI3",
+        "etiqueta": "Prototipos & Sistemas UI"
+      },
+      {
+        "valor": "Front-End",
+        "etiqueta": "Angular, SCSS, CSS Grid & Tailwind"
+      }
+    ]
+  },
+  "marquee": [
+    {
+      "texto": "Diseño Centrado en el Usuario (UX/UI)",
+      "color": "bg-indigo-400"
+    },
+    {
+      "texto": "Prototipado Interactivo en Figma",
+      "color": "bg-pink-400"
+    },
+    {
+      "texto": "Desarrollo Front-End con Angular",
+      "color": "bg-purple-400"
+    },
+    {
+      "texto": "CSS Grid, Flexbox & SCSS",
+      "color": "bg-blue-400"
+    },
+    {
+      "texto": "Tailwind CSS & Bootstrap",
+      "color": "bg-emerald-400"
+    },
+    {
+      "texto": "WordPress & E-Commerce",
+      "color": "bg-amber-400"
+    },
+    {
+      "texto": "SEO, SEM & Google Analytics",
+      "color": "bg-rose-400"
+    }
+  ],
+  "especialidades": [
+    {
+      "icono": "touch_app",
+      "color": "indigo",
+      "titulo": "Prototipado en Figma",
+      "descripcion": "Diseño de flujos interactivos, Auto Layout, componentes y sistemas de diseño para validar la experiencia antes de escribir código."
+    },
+    {
+      "icono": "devices",
+      "color": "purple",
+      "titulo": "Responsive & Accesibilidad",
+      "descripcion": "Interfaces adaptables (Mobile-First) con alto contraste, jerarquía clara y estándares de usabilidad para portales masivos."
+    },
+    {
+      "icono": "code",
+      "color": "pink",
+      "titulo": "Arquitectura Front-End",
+      "descripcion": "Maquetación moderna empleando HTML5 semántico, CSS3 avanzado (Grid/Flexbox), SCSS, Tailwind CSS, JS y Angular."
+    },
+    {
+      "icono": "trending_up",
+      "color": "emerald",
+      "titulo": "Optimización & Conversión",
+      "descripcion": "Estructuración pensada en SEO técnico, velocidad de carga, Google Analytics y embudos de conversión en E-Commerce."
+    }
+  ],
+  "proyectos": [
+    {
+      "categoria": "UX/UI • Prototipado • Front-End",
+      "entidad": "Oficina Nacional de Procesos Electorales",
+      "titulo": "ONPE – Plataforma Web Electoral & Sistemas UI",
+      "descripcion": "Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.",
+      "url": "https://www.gob.pe/onpe",
+      "texto_url": "Web Oficial",
+      "tema": "blue",
+      "tags": [
+        "Figma Prototypes",
+        "Angular",
+        "HTML5 / SCSS",
+        "Diseño Centrado en el Usuario"
+      ]
+    },
+    {
+      "categoria": "Sistemas Web Institucionales",
+      "entidad": "Ministerio de Salud del Perú",
+      "titulo": "MINSA – Sistema Web Institucional",
+      "descripcion": "Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.",
+      "url": "https://www.gob.pe/minsa",
+      "texto_url": "Web Oficial",
+      "tema": "cyan",
+      "tags": [
+        "UI/UX",
+        "Maquetación Web",
+        "JavaScript / Ajax",
+        "Bootstrap"
+      ]
+    },
+    {
+      "categoria": "E-Commerce & Conversión",
+      "entidad": "Emprendedora Textil S.A.C.",
+      "titulo": "Bangui Moda – Tienda E-Commerce",
+      "descripcion": "Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.",
+      "url": "",
+      "texto_url": "Sector Moda Textil",
+      "tema": "pink",
+      "tags": [
+        "Diseño Web",
+        "WordPress / E-Commerce",
+        "SEO / Google Analytics",
+        "Diseño Gráfico"
+      ]
+    },
+    {
+      "categoria": "Agencia & Productos Digitales",
+      "entidad": "Prístinet Agencia & OXPA Perú",
+      "titulo": "Sitios Corporativos & Mejora UX/UI",
+      "descripcion": "Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.",
+      "url": "",
+      "texto_url": "Corporativo",
+      "tema": "purple",
+      "tags": [
+        "Prototipado UI/UX",
+        "HTML / CSS / JS",
+        "Tailwind CSS",
+        "Marketing Digital"
+      ]
+    }
+  ],
+  "experiencia": [
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Analista UX/UI",
+      "periodos": [
+        "Jul – Oct 2026",
+        "May – Jun 2026",
+        "Ene – Abr 2026"
+      ],
+      "descripcion": "Diseño de interfaces y prototipos interactivos centrados en el usuario para plataformas electorales en tres periodos consecutivos durante el 2026, asegurando accesibilidad, consistencia visual y flujos intuitivos.",
+      "color": "indigo",
+      "destacado": true
+    },
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Servicio de Diseño Gráfico",
+      "periodos": [
+        "Sep – Dic 2025",
+        "May – Sep 2025"
+      ],
+      "descripcion": "Diseño de piezas gráficas institucionales y recursos visuales digitales para procesos electorales a nivel nacional.",
+      "color": "purple",
+      "destacado": false
+    },
+    {
+      "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
+      "cargo": "Diseño y Desarrollo de Plataforma y Sistema Web FUNC 2024",
+      "periodos": [
+        "Jun – Nov 2024",
+        "Feb – Jun 2024"
+      ],
+      "descripcion": "Diseño de la interfaz del sistema web funcional y desarrollo de la plataforma web para el proceso electoral peruano 2024.",
+      "color": "blue",
+      "destacado": false
+    },
+    {
+      "empresa": "OXPA PERU S.A.C.",
+      "cargo": "Diseñador UX/UI",
+      "periodos": [
+        "Ene 2023 – Ene 2024"
+      ],
+      "descripcion": "Orientado al diseño de interfaces intuitivas, prototipado de flujos y mejora continua de la experiencia del usuario en productos digitales.",
+      "color": "pink",
+      "destacado": false
+    },
+    {
+      "empresa": "Ministerio de Salud – MINSA",
+      "cargo": "Servicio de Diseño de Sistema Web",
+      "periodos": [
+        "Ene – Dic 2022"
+      ],
+      "descripcion": "Diseño de interfaces para sistemas web institucionales del sector salud, estandarizando vistas y usabilidad.",
+      "color": "cyan",
+      "destacado": false
+    },
+    {
+      "empresa": "Prístinet – Agencia de Comunicación",
+      "cargo": "Diseñador Web",
+      "periodos": [
+        "Jul 2020 – Dic 2021"
+      ],
+      "descripcion": "Diseño y desarrollo de sitios web corporativos y comerciales para clientes de la agencia en Lima.",
+      "color": "indigo",
+      "destacado": false
+    },
+    {
+      "empresa": "Bangui Moda – Emprendedora Textil S.A.C.",
+      "cargo": "Diseñador Web",
+      "periodos": [
+        "Jul 2018 – Jun 2020"
+      ],
+      "descripcion": "Diseño, implementación y mantenimiento del sitio web y tienda online de moda.",
+      "color": "slate",
+      "destacado": false
+    }
+  ],
+  "habilidades": [
+    {
+      "grupo": "Diseño Web, UI/UX & Prototipado",
+      "icono": "layers",
+      "color": "indigo",
+      "items": [
+        "Figma (Prototipado & UI3)",
+        "Diseño Centrado en el Usuario",
+        "UI/UX",
+        "Wireframing & Design Systems"
+      ]
+    },
+    {
+      "grupo": "Front-End & Desarrollo Web",
+      "icono": "terminal",
+      "color": "purple",
+      "items": [
+        "Angular",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS3 / SCSS (Grid & Flexbox)",
+        "JavaScript",
+        "Ajax",
+        "Bootstrap",
+        "WordPress & PHP"
+      ]
+    },
+    {
+      "grupo": "Marketing Digital & Diseño Gráfico",
+      "icono": "campaign",
+      "color": "pink",
+      "items": [
+        "SEO",
+        "SEM / Google Ads",
+        "Google Analytics",
+        "Redes Sociales & Email Marketing",
+        "Photoshop, Illustrator & InDesign"
+      ]
+    }
+  ],
+  "educacion": [
+    {
+      "subtitulo": "Especialización Reciente • Udemy",
+      "titulo": "Curso Figma 2026 y Diseño Web",
+      "detalle": "9 de julio de 2026 • 17.5 horas",
+      "badge": "2026",
+      "destacado": "indigo"
+    },
+    {
+      "subtitulo": "Título Profesional • IESTPFFAA",
+      "titulo": "Profesional Técnico en Computación e Informática",
+      "detalle": "Instituto de Educación Superior Tecnológico Público de las Fuerzas Armadas",
+      "badge": "Dic 2020",
+      "destacado": "emerald"
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Diseño UX: Experiencia de Usuario UX/UI + Figma 2023",
+      "detalle": "Duración: 22.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Master en CSS3 Avanzado: Maqueta 3 sitios web profesionales",
+      "detalle": "Duración: 27 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 29 Sep 2023",
+      "titulo": "Máster en PHP 8, POO, MVC, MySQL, Laravel 8, CodeIgniter 4",
+      "detalle": "Duración: 62.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 12 May 2021",
+      "titulo": "Máster en Front-End: Crea Temas para WordPress, PHP, Angular",
+      "detalle": "Duración: 31 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "Udemy • 23 Ene 2020",
+      "titulo": "Adobe Photoshop, Illustrator, InDesign (Tutos minute)",
+      "detalle": "Duración: 2.5 horas",
+      "badge": "",
+      "destacado": ""
+    },
+    {
+      "subtitulo": "PROMPERÚ • Feb – Mar 2019",
+      "titulo": "Programa de Marketing Digital",
+      "detalle": "Formación especializada • 45 horas",
+      "badge": "",
+      "destacado": "pink"
+    }
+  ]
+}
