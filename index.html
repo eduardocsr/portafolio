@@ -37,6 +37,7 @@
         }
     </script>
     <style>
+        
         body {
             background-color: #060913;
             color: #f8fafc;
@@ -90,14 +91,20 @@
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
         /* Marquee optimizado con velocidad ágil en mobile y desktop */
+    /* Keyframes nativos para asegurar movimiento continuo en Desktop y Mobile */
+        @keyframes marqueeLoop {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
         .marquee-track {
             display: flex;
             width: max-content;
-            animation: marquee 16s linear infinite;
+            will-change: transform;
+            animation: marqueeLoop 18s linear infinite;
         }
         @media (max-width: 768px) {
             .marquee-track {
-                animation: marquee 11s linear infinite;
+                animation: marqueeLoop 7.5s linear infinite;
             }
         }
         .marquee-track:hover {
