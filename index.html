@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eduardo Castillo | Diseñador Web & Especialista UX/UI</title>
+    <title>Ruitor Eduardo Castillo Salazar | Diseñador Web & Especialista UX/UI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -15,17 +15,22 @@
                 extend: {
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#1e1b4b',
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 28s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         },
-                        accent: '#ec4899'
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
                     }
                 }
             }
@@ -33,468 +38,709 @@
     </script>
     <style>
         body {
-            background-color: #0b0f19;
+            background-color: #060913;
             color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
         .glass {
-            background: rgba(30, 41, 59, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+        .glass-strong {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+        }
         .gradient-text {
-            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .card-interactive {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .card-hover:hover {
+        .card-interactive:hover {
             transform: translateY(-6px);
-            border-color: rgba(129, 140, 248, 0.4);
-            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+            border-color: rgba(139, 92, 246, 0.45);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
+        }
+        /* Animación de entrada al hacer scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Línea de tiempo animada */
+        .timeline-dot {
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-indigo-500 selection:text-white">
+<body class="antialiased selection:bg-indigo-500 selection:text-white bg-grid">
 
-    <!-- Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/60">
+    <!-- Luces ambientales de fondo -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/15 blur-[140px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-fuchsia-600/10 blur-[140px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- Navbar fija con enlaces rápidos -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/80">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-xl font-extrabold tracking-tight flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center text-white font-bold text-sm">EC</span>
-                <span>Eduardo<span class="text-indigo-400">.design</span></span>
+            <a href="#inicio" class="text-lg font-extrabold tracking-tight flex items-center gap-2.5 group">
+                <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition">EC</span>
+                <span>Eduardo<span class="text-indigo-400">Castillo</span></span>
             </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="#sobre-mi" class="hover:text-white transition">Enfoque</a>
-                <a href="#proyectos" class="hover:text-white transition">Proyectos</a>
-                <a href="#experiencia" class="hover:text-white transition">Trayectoria</a>
-                <a href="#habilidades" class="hover:text-white transition">Stack & Cursos</a>
+
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+                <a href="#perfil" class="hover:text-indigo-400 transition">Perfil</a>
+                <a href="#especialidades" class="hover:text-indigo-400 transition">Qué hago</a>
+                <a href="#proyectos" class="hover:text-indigo-400 transition">Proyectos</a>
+                <a href="#experiencia" class="hover:text-indigo-400 transition">Experiencia</a>
+                <a href="#educacion" class="hover:text-indigo-400 transition">Cursos</a>
             </nav>
-            <a href="#contacto" class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition shadow-lg shadow-indigo-600/25">
-                Hablemos
-            </a>
+
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20conversar." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold transition">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    WhatsApp Directo
+                </a>
+                <a href="#contacto" class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition shadow-lg shadow-indigo-600/30">
+                    Contactar
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-indigo-600/20 blur-[130px] rounded-full pointer-events-none"></div>
-        <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-indigo-300 mb-6">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Disponible para proyectos & consultoría UX/UI
-            </div>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.15] max-w-4xl">
-                Diseño interfaces intuitivas, <span class="gradient-text">prototipos interactivos</span> y soluciones web de alto impacto.
-            </h1>
-            <p class="mt-6 text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
-                Hola, soy <strong class="text-white font-semibold">Ruitor Eduardo Castillo Salazar</strong>. Diseñador Web y Analista UX/UI con más de 7 años de experiencia transformando ideas complejas en productos digitales fluidos, desde el prototipado en Figma hasta su implementación en código.
-            </p>
-            <div class="mt-10 flex flex-wrap items-center gap-4">
-                <a href="#proyectos" class="px-7 py-3.5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-slate-200 transition flex items-center gap-2">
-                    Ver proyectos destacados
-                    <span class="material-icons-round text-lg">arrow_downward</span>
-                </a>
-                <a href="mailto:castillo2000edu@gmail.com" class="px-7 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-white font-semibold text-sm transition flex items-center gap-2">
-                    <span class="material-icons-round text-lg text-indigo-400">mail_outline</span>
-                    castillo2000edu@gmail.com
-                </a>
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative pt-32 pb-16 md:pt-40 md:pb-24 z-10">
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Columna Texto Hero -->
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-indigo-300 mb-6 border border-indigo-500/30">
+                    <span class="material-icons-round text-sm text-indigo-400">verified</span>
+                    +7 años creando experiencias digitales • Lima, Perú
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.12]">
+                    Diseñador Web & <span class="gradient-text">Especialista UI/UX</span>
+                </h1>
+
+                <!-- Perfil mejorado y sutil sobre prototipado en Figma -->
+                <p id="perfil" class="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed">
+                    Soy <strong class="text-white">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class="text-indigo-300 font-semibold">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.
+                </p>
+
+                <!-- Botones con enlaces reales -->
+                <div class="mt-8 flex flex-wrap items-center gap-3.5">
+                    <a href="#proyectos" class="px-6 py-3.5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition flex items-center gap-2 shadow-xl">
+                        Ver Proyectos
+                        <span class="material-icons-round text-base">arrow_downward</span>
+                    </a>
+                    <a href="https://wa.me/51925306039" target="_blank" class="px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-white font-semibold text-sm transition flex items-center gap-2">
+                        <span class="material-icons-round text-base text-emerald-400">chat</span>
+                        +51 925 306 039
+                    </a>
+                    <a href="mailto:Castillo2000edu@gmail.com" class="px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-slate-200 font-semibold text-sm transition flex items-center gap-2">
+                        <span class="material-icons-round text-base text-indigo-400">alternate_email</span>
+                        Castillo2000edu@gmail.com
+                    </a>
+                </div>
+
+                <!-- Micro-métricas rápidas -->
+                <div class="mt-10 pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4">
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-white">+7 Años</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Trayectoria continua</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-indigo-400">Figma UI3</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Prototipos & Sistemas UI</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-pink-400">Front-End</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Angular, SCSS & Grid</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Stats -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 border-t border-slate-800/80">
-                <div>
-                    <p class="text-3xl font-extrabold text-white">+7 años</p>
-                    <p class="text-sm text-slate-400 mt-1">Experiencia profesional</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-white">UX / UI</p>
-                    <p class="text-sm text-slate-400 mt-1">Prototipado & Design Systems</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-white">Front-End</p>
-                    <p class="text-sm text-slate-400 mt-1">HTML, SCSS, Grid, Angular</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-white">100%</p>
-                    <p class="text-sm text-slate-400 mt-1">Enfoque centrado en el usuario</p>
+            <!-- Columna Derecha: Tarjeta Interactiva Flotante (Mockup Figma + Código) -->
+            <div class="lg:col-span-5 relative">
+                <div class="glass-strong rounded-2xl p-6 shadow-2xl animate-float relative overflow-hidden">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <span class="font-mono text-xs text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20">
+                            workflow: figma_to_code.ts
+                        </span>
+                    </div>
+
+                    <!-- Simulación visual de proceso de diseño a web -->
+                    <div class="space-y-4">
+                        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0">
+                                <span class="material-icons-round text-xl">architecture</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-white">Prototipado & Auto Layout</span>
+                                    <span class="text-emerald-400">Validado</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">Flujos interactivos, Design Tokens y pruebas de usabilidad antes de programar.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
+                                <span class="material-icons-round text-xl">grid_view</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span class="text-white">Maquetación Pixel-Perfect</span>
+                                    <span class="text-indigo-400">CSS Grid / Flex</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">Arquitectura Front-End limpia en Angular, Tailwind CSS, SCSS y WordPress.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-950/90 border border-slate-800/90 font-mono text-xs text-slate-300 leading-relaxed">
+                            <span class="text-purple-400">const</span> <span class="text-blue-400">eduardoCastillo</span> = {<br>
+                            &nbsp;&nbsp;rol: <span class="text-emerald-300">'Diseñador Web & Analista UX/UI'</span>,<br>
+                            &nbsp;&nbsp;prototipado: [<span class="text-amber-300">'Figma 2026'</span>, <span class="text-amber-300">'Wireframes'</span>, <span class="text-amber-300">'UI Kits'</span>],<br>
+                            &nbsp;&nbsp;frontend: [<span class="text-amber-300">'Angular'</span>, <span class="text-amber-300">'Tailwind'</span>, <span class="text-amber-300">'SCSS'</span>, <span class="text-amber-300">'JS'</span>],<br>
+                            &nbsp;&nbsp;enfoque: <span class="text-emerald-300">'100% Centrado en el Usuario'</span><br>
+                            };
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Qué hago / Enfoque -->
-    <section id="sobre-mi" class="py-20 bg-slate-900/40 border-y border-slate-800/60">
+    <!-- CINTA INFINITA DE TECNOLOGÍAS (MARQUEE ANIMADO) -->
+    <div class="py-5 border-y border-slate-800/80 bg-slate-900/40 overflow-hidden relative z-10">
+        <div class="flex whitespace-nowrap animate-marquee gap-10 items-center text-sm font-semibold text-slate-400">
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Diseño Centrado en el Usuario (UX/UI)</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Prototipado Interactivo en Figma</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Desarrollo Front-End con Angular</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span> CSS Grid, Flexbox & SCSS Avanzado</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Tailwind CSS & Bootstrap</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span> WordPress, Elementor & E-Commerce</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500"></span> SEO, SEM (Google Ads) & Google Analytics</span>
+            <!-- Duplicado para efecto continuo -->
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Diseño Centrado en el Usuario (UX/UI)</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Prototipado Interactivo en Figma</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Desarrollo Front-End con Angular</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span> CSS Grid, Flexbox & SCSS Avanzado</span>
+        </div>
+    </div>
+
+    <!-- LO QUE APORTO (VALOR AGREGADO EN DISEÑO WEB Y PROTOTIPADO) -->
+    <section id="especialidades" class="py-20 relative z-10">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="max-w-2xl mb-14">
-                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Mi Metodología</span>
-                <h2 class="text-3xl font-bold mt-2">Del concepto y prototipo al producto real</h2>
-                <p class="text-slate-400 mt-3 text-base">No solo diseño pantallas atractivas; valido flujos de usuario antes de escribir código para ahorrar tiempo y garantizar plataformas que la gente disfrute usar.</p>
+            <div class="max-w-2xl mb-12 reveal">
+                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Valor Diferencial</span>
+                <h2 class="text-3xl font-extrabold mt-2">Más que páginas web: diseño productos completos</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">
+                    Integro el diseño visual con la lógica del desarrollo para que cada proyecto sea estético, rápido y fácil de usar.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass p-7 rounded-2xl card-hover">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-5">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass p-6 rounded-2xl card-interactive reveal">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4">
                         <span class="material-icons-round">touch_app</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">1. Investigación y Prototipado</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Arquitectura de información, wireframes y prototipos interactivos de alta fidelidad en <strong>Figma</strong> para validar la usabilidad temprano.
+                    <h3 class="text-base font-bold text-white">Prototipado en Figma</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                        Diseño de flujos interactivos, Auto Layout, componentes y sistemas de diseño para validar la experiencia antes de escribir código.
                     </p>
                 </div>
 
-                <div class="glass p-7 rounded-2xl card-hover">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-5">
-                        <span class="material-icons-round">palette</span>
+                <div class="glass p-6 rounded-2xl card-interactive reveal">
+                    <div class="w-11 h-11 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
+                        <span class="material-icons-round">devices</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">2. Diseño UI & Accesibilidad</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Sistemas de diseño escalables, componentes reutilizables, tokens de color y cumplimiento de estándares de accesibilidad para portales masivos.
+                    <h3 class="text-base font-bold text-white">Responsive & Accesibilidad</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                        Interfaces adaptables (Mobile-First) con alto contraste, jerarquía clara y cumplimiento de estándares de usabilidad para portales masivos.
                     </p>
                 </div>
 
-                <div class="glass p-7 rounded-2xl card-hover">
-                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mb-5">
+                <div class="glass p-6 rounded-2xl card-interactive reveal">
+                    <div class="w-11 h-11 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 mb-4">
                         <span class="material-icons-round">code</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">3. Maquetación & Front-End</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Traducción fiel del diseño a código limpio y responsive empleando <strong>HTML5, CSS3/SCSS, Flexbox, CSS Grid, Angular y WordPress</strong>.
+                    <h3 class="text-base font-bold text-white">Arquitectura Front-End</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                        Maquetación moderna empleando HTML5 semántico, CSS3 avanzado (Grid/Flexbox), SCSS, Tailwind CSS, JavaScript y componentes en Angular.
+                    </p>
+                </div>
+
+                <div class="glass p-6 rounded-2xl card-interactive reveal">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+                        <span class="material-icons-round">trending_up</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Optimización & Conversión</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+                        Estructuración pensada en SEO técnico, velocidad de carga, integración con Google Analytics y embudos de conversión en E-Commerce.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Proyectos Seleccionados -->
-    <section id="proyectos" class="py-24">
+    <!-- PROYECTOS DESTACADOS (CON ENLACES E IMPACTO) -->
+    <section id="proyectos" class="py-20 bg-slate-900/30 border-y border-slate-800/70 relative z-10">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal">
                 <div>
                     <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Portafolio Seleccionado</span>
-                    <h2 class="text-3xl font-bold mt-2">Proyectos y Soluciones Digitales</h2>
+                    <h2 class="text-3xl font-extrabold mt-2">Proyectos Destacados</h2>
                 </div>
-                <p class="text-slate-400 text-sm max-w-md">Casos reales donde combiné análisis UX, prototipado interactivo y desarrollo web para instituciones públicas y sector privado.</p>
+                <p class="text-slate-400 text-sm max-w-md">
+                    Plataformas institucionales, sistemas web y comercio electrónico desarrollados para el sector público y privado.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Proyecto 1 -->
-                <article class="glass rounded-2xl overflow-hidden card-hover flex flex-col justify-between">
+            <div class="grid md:grid-cols-2 gap-7">
+                <!-- Proyecto 1: ONPE -->
+                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
                     <div>
-                        <div class="h-52 bg-gradient-to-br from-indigo-900/80 via-slate-900 to-slate-950 p-6 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold w-fit">UX/UI & Prototipado</span>
-                            <div class="my-auto">
-                                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Sector Público • ONPE</p>
-                                <h3 class="text-2xl font-extrabold text-white mt-1">Plataformas Electorales & Servicios Ciudadanos</h3>
+                        <div class="h-48 bg-gradient-to-br from-blue-900/80 via-indigo-950 to-slate-950 p-6 flex flex-col justify-between border-b border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
+                                    UX/UI • Prototipado • Front-End
+                                </span>
+                                <a href="https://www.gob.pe/onpe" target="_blank" class="text-slate-400 hover:text-white transition flex items-center gap-1 text-xs font-medium">
+                                    Entidad <span class="material-icons-round text-sm">open_in_new</span>
+                                </a>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-indigo-300 font-semibold">Oficina Nacional de Procesos Electorales</p>
+                                <h3 class="text-2xl font-extrabold text-white mt-0.5">ONPE – Plataforma Web Electoral & Sistemas UI</h3>
                             </div>
                         </div>
-                        <div class="p-7">
+                        <div class="p-6">
                             <p class="text-slate-300 text-sm leading-relaxed">
-                                Conceptualización, diseño de flujos y prototipos interactivos para sistemas web de alcance nacional (EG2026 y FUNC 2024). Optimización de usabilidad y accesibilidad en formularios críticos y atención al ciudadano.
+                                Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.
                             </p>
                         </div>
                     </div>
-                    <div class="px-7 pb-7 pt-2 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Figma UI3</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Prototipado</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Angular Material</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Accesibilidad</span>
+                    <div class="px-6 pb-6 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Figma Prototypes</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Angular</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">HTML5 / SCSS</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Diseño Centrado en el Usuario</span>
                     </div>
                 </article>
 
-                <!-- Proyecto 2 -->
-                <article class="glass rounded-2xl overflow-hidden card-hover flex flex-col justify-between">
+                <!-- Proyecto 2: MINSA -->
+                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
                     <div>
-                        <div class="h-52 bg-gradient-to-br from-purple-900/80 via-slate-900 to-slate-950 p-6 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <span class="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-semibold w-fit">UI System & Front-End</span>
-                            <div class="my-auto">
-                                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Modernización Enterprise</p>
-                                <h3 class="text-2xl font-extrabold text-white mt-1">Arquitectura UI & Maquetación CSS Grid/Flex</h3>
+                        <div class="h-48 bg-gradient-to-br from-cyan-900/70 via-slate-900 to-slate-950 p-6 flex flex-col justify-between border-b border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-semibold">
+                                    Sistemas Web Institucionales
+                                </span>
+                                <a href="https://www.gob.pe/minsa" target="_blank" class="text-slate-400 hover:text-white transition flex items-center gap-1 text-xs font-medium">
+                                    Entidad <span class="material-icons-round text-sm">open_in_new</span>
+                                </a>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-cyan-300 font-semibold">Ministerio de Salud del Perú</p>
+                                <h3 class="text-2xl font-extrabold text-white mt-0.5">MINSA – Sistema Web Institucional</h3>
                             </div>
                         </div>
-                        <div class="p-7">
+                        <div class="p-6">
                             <p class="text-slate-300 text-sm leading-relaxed">
-                                Rediseño y refactorización visual de aplicaciones empresariales hacia arquitecturas modernas en Angular, reemplazando librerías heredadas por layouts nativos con CSS Grid, Flexbox y SCSS modular.
+                                Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.
                             </p>
                         </div>
                     </div>
-                    <div class="px-7 pb-7 pt-2 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Angular</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">SCSS</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">CSS Grid & Flexbox</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Design Tokens</span>
+                    <div class="px-6 pb-6 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">UI/UX</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Maquetación Web</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">JavaScript / Ajax</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Bootstrap</span>
                     </div>
                 </article>
 
-                <!-- Proyecto 3 -->
-                <article class="glass rounded-2xl overflow-hidden card-hover flex flex-col justify-between">
+                <!-- Proyecto 3: Bangui Moda E-commerce -->
+                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
                     <div>
-                        <div class="h-52 bg-gradient-to-br from-emerald-900/70 via-slate-900 to-slate-950 p-6 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold w-fit">Sistemas Web Salud</span>
-                            <div class="my-auto">
-                                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Ministerio de Salud • MINSA</p>
-                                <h3 class="text-2xl font-extrabold text-white mt-1">Diseño de Sistemas Web Institucionales</h3>
+                        <div class="h-48 bg-gradient-to-br from-fuchsia-900/70 via-slate-900 to-slate-950 p-6 flex flex-col justify-between border-b border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-xs font-semibold">
+                                    E-Commerce & Conversión
+                                </span>
+                                <span class="text-slate-400 text-xs font-medium">Sector Moda Textil</span>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-pink-300 font-semibold">Emprendedora Textil S.A.C.</p>
+                                <h3 class="text-2xl font-extrabold text-white mt-0.5">Bangui Moda – Tienda E-Commerce</h3>
                             </div>
                         </div>
-                        <div class="p-7">
+                        <div class="p-6">
                             <p class="text-slate-300 text-sm leading-relaxed">
-                                Análisis y diseño de interfaces para la Oficina de Innovación y Desarrollo Tecnológico. Estandarización de flujos de información para mejorar la operatividad interna y consulta ciudadana.
+                                Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.
                             </p>
                         </div>
                     </div>
-                    <div class="px-7 pb-7 pt-2 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Diseño UI</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">HTML5 / CSS3</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">JavaScript</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Usabilidad</span>
+                    <div class="px-6 pb-6 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Diseño Web</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">WordPress / E-Commerce</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">SEO / Google Analytics</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Diseño Gráfico</span>
                     </div>
                 </article>
 
-                <!-- Proyecto 4 -->
-                <article class="glass rounded-2xl overflow-hidden card-hover flex flex-col justify-between">
+                <!-- Proyecto 4: Prístinet & OXPA -->
+                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between reveal">
                     <div>
-                        <div class="h-52 bg-gradient-to-br from-pink-900/70 via-slate-900 to-slate-950 p-6 flex flex-col justify-between relative overflow-hidden border-b border-slate-800">
-                            <span class="px-3 py-1 rounded-full bg-pink-500/20 border border-pink-400/30 text-pink-300 text-xs font-semibold w-fit">E-Commerce & Identidad</span>
-                            <div class="my-auto">
-                                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Sector Privado & Agencias</p>
-                                <h3 class="text-2xl font-extrabold text-white mt-1">Tiendas Online & Portales Corporativos</h3>
+                        <div class="h-48 bg-gradient-to-br from-purple-900/70 via-slate-900 to-slate-950 p-6 flex flex-col justify-between border-b border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <span class="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-semibold">
+                                    Agencia & Productos Digitales
+                                </span>
+                                <span class="text-slate-400 text-xs font-medium">Corporativo / Multicliente</span>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-purple-300 font-semibold">Prístinet Agencia & OXPA Perú</p>
+                                <h3 class="text-2xl font-extrabold text-white mt-0.5">Sitios Corporativos & Mejora UX/UI</h3>
                             </div>
                         </div>
-                        <div class="p-7">
+                        <div class="p-6">
                             <p class="text-slate-300 text-sm leading-relaxed">
-                                Creación integral de tiendas virtuales, landing pages y sitios corporativos para marcas comerciales (Emprendedora Textil, Prístinet), integrando SEO, analítica y optimización de conversión.
+                                Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.
                             </p>
                         </div>
                     </div>
-                    <div class="px-7 pb-7 pt-2 flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">WordPress</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">E-Commerce</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">SEO / SEM</span>
-                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs">Suite Adobe</span>
+                    <div class="px-6 pb-6 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Prototipado UI/UX</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">HTML / CSS / JS</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Tailwind CSS</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-xs">Marketing Digital</span>
                     </div>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Experiencia Laboral -->
-    <section id="experiencia" class="py-20 bg-slate-900/40 border-t border-slate-800/60">
-        <div class="max-w-6xl mx-auto px-6">
-            <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Trayectoria</span>
-            <h2 class="text-3xl font-bold mt-2 mb-12">Experiencia Profesional</h2>
+    <!-- EXPERIENCIA LABORAL COMPLETA (CRONOLÓGICA SEGÚN TU CV ACTUALIZADO) -->
+    <section id="experiencia" class="py-20 relative z-10">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12 reveal">
+                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Trayectoria</span>
+                <h2 class="text-3xl font-extrabold mt-2">Experiencia Profesional</h2>
+                <p class="text-slate-400 text-sm mt-1">Historial completo de servicios y cargos desempeñados (2018 – 2026).</p>
+            </div>
 
-            <div class="space-y-6">
-                <!-- Exp 1 -->
-                <div class="glass p-6 md:p-8 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold text-white">Analista UX/UI 4</h3>
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300">ONPE – Proceso EG2026</span>
+            <div class="relative border-l-2 border-slate-800 ml-3 md:ml-6 space-y-8 pl-6 md:pl-8">
+
+                <!-- Bloque ONPE 2026 (Analista UX/UI) -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-4 h-4 rounded-full bg-indigo-500 absolute -left-[33px] md:-left-[41px] top-6 timeline-dot"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
+                            <h3 class="text-lg font-extrabold text-white">Analista UX/UI</h3>
                         </div>
-                        <p class="text-slate-400 text-sm mt-2 max-w-3xl">
-                            Diseño y prototipado de interfaces digitales centradas en el usuario en la Gerencia de Informática y Tecnología Electoral, optimizando flujos de navegación y accesibilidad.
-                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-semibold">
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Jul – Oct 2026</span>
+                            <span class="px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">May – Jun 2026</span>
+                            <span class="px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">Ene – Abr 2026</span>
+                        </div>
                     </div>
-                    <div class="text-xs font-semibold text-slate-400 shrink-0 md:text-right">
-                        Ene. 2026 – Abr. 2026<br><span class="text-slate-500">Lima, Perú</span>
-                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño de interfaces y prototipos interactivos centrados en el usuario para plataformas electorales en tres periodos consecutivos durante el 2026, asegurando accesibilidad, consistencia visual y flujos intuitivos.
+                    </p>
                 </div>
 
-                <!-- Exp 2 -->
-                <div class="glass p-6 md:p-8 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold text-white">Diseñador Gráfico 1 / Diseñador y Desarrollador de Sistemas Web</h3>
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300">ONPE</span>
+                <!-- Bloque ONPE 2025 (Servicio de Diseño Gráfico) -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-purple-500 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
+                            <h3 class="text-lg font-bold text-white">Servicio de Diseño Gráfico</h3>
                         </div>
-                        <p class="text-slate-400 text-sm mt-2 max-w-3xl">
-                            Servicio de diseño y desarrollo de plataformas web (FUNC 2024) y piezas gráficas interactivas para la Gerencia de Informática y Tecnología Electoral.
-                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-semibold">
+                            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Sep – Dic 2025</span>
+                            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">May – Sep 2025</span>
+                        </div>
                     </div>
-                    <div class="text-xs font-semibold text-slate-400 shrink-0 md:text-right">
-                        Feb. 2024 – Set. 2025<br><span class="text-slate-500">Lima, Perú</span>
-                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño de piezas gráficas institucionales y recursos visuales digitales para procesos electorales a nivel nacional.
+                    </p>
                 </div>
 
-                <!-- Exp 3 -->
-                <div class="glass p-6 md:p-8 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold text-white">Desarrollador Web y Diseñador Gráfico</h3>
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-700 text-slate-300">Emprendedora Textil S.A.C.</span>
+                <!-- Bloque ONPE 2024 (FUNC 2024) -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-blue-500 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-400">Oficina Nacional de Procesos Electorales (ONPE)</span>
+                            <h3 class="text-lg font-bold text-white">Diseño y Desarrollo de Plataforma y Sistema Web FUNC 2024</h3>
                         </div>
-                        <p class="text-slate-400 text-sm mt-2 max-w-3xl">
-                            Creación de páginas web, tiendas online, administración de contenidos y diseño de identidad visual.
-                        </p>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-semibold">
+                            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Jun – Nov 2024</span>
+                            <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Feb – Jun 2024</span>
+                        </div>
                     </div>
-                    <div class="text-xs font-semibold text-slate-400 shrink-0 md:text-right">
-                        Ene. 2023 – Set. 2023<br><span class="text-slate-500">Jul. 2018 – Jun. 2020</span>
-                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño de la interfaz del sistema web funcional y desarrollo de la plataforma web para el proceso electoral peruano 2024.
+                    </p>
                 </div>
 
-                <!-- Exp 4 -->
-                <div class="glass p-6 md:p-8 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold text-white">Diseñador de Sistemas Web & Analista de Sistemas</h3>
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-700 text-slate-300">Ministerio de Salud (MINSA)</span>
+                <!-- OXPA PERU S.A.C. -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-pink-500 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-pink-400">OXPA PERU S.A.C.</span>
+                            <h3 class="text-lg font-bold text-white">Diseñador UX/UI</h3>
                         </div>
-                        <p class="text-slate-400 text-sm mt-2 max-w-3xl">
-                            Diseño de sistemas web y apoyo informático en la Oficina de Innovación y Desarrollo Tecnológico (OGTI).
-                        </p>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold w-fit">Ene 2023 – Ene 2024</span>
                     </div>
-                    <div class="text-xs font-semibold text-slate-400 shrink-0 md:text-right">
-                        Ene. 2022 – Dic. 2022<br><span class="text-slate-500">Lima, Perú</span>
-                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Orientado al diseño de interfaces intuitivas, prototipado de flujos y mejora continua de la experiencia del usuario en productos digitales.
+                    </p>
                 </div>
 
-                <!-- Exp 5 -->
-                <div class="glass p-6 md:p-8 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 flex-wrap">
-                            <h3 class="text-lg font-bold text-white">Consultor en Diseño Web</h3>
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-700 text-slate-300">Prístinet – Agencia de Comunicación</span>
+                <!-- MINSA -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-cyan-500 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Ministerio de Salud – MINSA</span>
+                            <h3 class="text-lg font-bold text-white">Servicio de Diseño de Sistema Web</h3>
                         </div>
-                        <p class="text-slate-400 text-sm mt-2 max-w-3xl">
-                            Diseño y estructuración de sitios web comerciales centrados en la experiencia del usuario y objetivos de comunicación.
-                        </p>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold w-fit">Ene – Dic 2022</span>
                     </div>
-                    <div class="text-xs font-semibold text-slate-400 shrink-0 md:text-right">
-                        Jul. 2020 – Dic. 2021<br><span class="text-slate-500">Lima, Perú</span>
-                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño de interfaces para sistemas web institucionales del sector salud, estandarizando vistas y usabilidad.
+                    </p>
                 </div>
+
+                <!-- Prístinet -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-indigo-400 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">Prístinet – Agencia de Comunicación</span>
+                            <h3 class="text-lg font-bold text-white">Diseñador Web</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold w-fit">Jul 2020 – Dic 2021</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño y desarrollo de sitios web corporativos y comerciales para clientes de la agencia en Lima.
+                    </p>
+                </div>
+
+                <!-- Bangui Moda -->
+                <div class="relative glass p-6 rounded-2xl card-interactive reveal">
+                    <span class="w-3.5 h-3.5 rounded-full bg-slate-500 absolute -left-[32px] md:-left-[40px] top-6"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Bangui Moda – Emprendedora Textil S.A.C.</span>
+                            <h3 class="text-lg font-bold text-white">Diseñador Web</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold w-fit">Jul 2018 – Jun 2020</span>
+                    </div>
+                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                        Diseño, implementación y mantenimiento del sitio web y tienda online de moda.
+                    </p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Habilidades y Certificaciones -->
-    <section id="habilidades" class="py-24">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-            <!-- Columna Habilidades -->
-            <div>
-                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Capacidades Técnicas</span>
-                <h2 class="text-2xl font-bold mt-2 mb-6">Stack & Herramientas</h2>
+    <!-- HABILIDADES Y EDUCACIÓN / CERTIFICACIONES -->
+    <section id="educacion" class="py-20 bg-slate-900/30 border-t border-slate-800/70 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12">
 
-                <div class="space-y-6">
-                    <div class="glass p-6 rounded-2xl">
-                        <h3 class="text-sm font-bold text-indigo-300 uppercase tracking-wider mb-3">UX/UI & Prototipado</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Figma (UI3, Auto Layout, Variables)</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Prototipado Interactivo</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Design Systems</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Wireframing</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Accesibilidad Web</span>
-                        </div>
+            <!-- Columna Habilidades (5 cols) -->
+            <div class="lg:col-span-5 space-y-6 reveal">
+                <div>
+                    <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Stack Técnico</span>
+                    <h2 class="text-2xl font-extrabold mt-2">Habilidades & Herramientas</h2>
+                </div>
+
+                <div class="glass p-6 rounded-2xl space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-2">
+                        <span class="material-icons-round text-base">layers</span> Diseño Web, UI/UX & Prototipado
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 text-xs font-semibold">Figma (Prototipado & UI3)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Diseño Centrado en el Usuario</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">UI/UX</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Wireframing & Design Systems</span>
                     </div>
+                </div>
 
-                    <div class="glass p-6 rounded-2xl">
-                        <h3 class="text-sm font-bold text-purple-300 uppercase tracking-wider mb-3">Desarrollo Web & Front-End</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">HTML5</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">CSS3 / SCSS</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">CSS Grid & Flexbox</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Angular & Angular Material</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">JavaScript</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Tailwind CSS / Bootstrap</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">WordPress & PHP</span>
-                        </div>
+                <div class="glass p-6 rounded-2xl space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-2">
+                        <span class="material-icons-round text-base">terminal</span> Front-End & Desarrollo Web
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200 text-xs font-semibold">Angular</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-200 text-xs font-semibold">Tailwind CSS</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">HTML5</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">CSS3 / SCSS (Grid & Flexbox)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">JavaScript</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Ajax</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Bootstrap</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">WordPress & PHP</span>
                     </div>
+                </div>
 
-                    <div class="glass p-6 rounded-2xl">
-                        <h3 class="text-sm font-bold text-pink-300 uppercase tracking-wider mb-3">Diseño Visual & Marketing</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Adobe Photoshop</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">Adobe Illustrator</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">InDesign</span>
-                            <span class="px-3 py-1.5 rounded-lg bg-slate-800/90 text-sm font-medium">SEO & Google Analytics</span>
-                        </div>
+                <div class="glass p-6 rounded-2xl space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-pink-400 flex items-center gap-2">
+                        <span class="material-icons-round text-base">campaign</span> Marketing Digital & Diseño Gráfico
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">SEO</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">SEM / Google Ads</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Google Analytics</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Redes Sociales & Email Marketing</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium">Photoshop, Illustrator & InDesign</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Columna Educación y Cursos -->
-            <div>
-                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Formación Continua</span>
-                <h2 class="text-2xl font-bold mt-2 mb-6">Educación y Certificaciones</h2>
+            <!-- Columna Educación y Cursos (7 cols) -->
+            <div class="lg:col-span-7 reveal">
+                <div class="mb-6">
+                    <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Formación & Certificaciones</span>
+                    <h2 class="text-2xl font-extrabold mt-2">Educación y Cursos Especializados</h2>
+                </div>
 
-                <div class="space-y-4">
-                    <div class="glass p-5 rounded-xl border-l-4 border-l-indigo-500">
-                        <p class="text-xs text-indigo-400 font-semibold">Título Profesional • Dic. 2020</p>
-                        <h3 class="font-bold text-white mt-0.5">Profesional Técnico en Computación e Informática</h3>
-                        <p class="text-xs text-slate-400 mt-1">IESTP "De las Fuerzas Armadas" (IESTPFFAA)</p>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <!-- Destacado 2026 -->
+                    <div class="sm:col-span-2 glass p-5 rounded-2xl border-l-4 border-l-indigo-500 flex items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-400 uppercase">Especialización Reciente • Udemy</span>
+                            <h3 class="font-bold text-white text-base mt-0.5">Curso Figma 2026 y Diseño Web</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">9 de julio de 2026 • 17.5 horas</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold shrink-0">2026</span>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
+                    <!-- Título Técnico -->
+                    <div class="sm:col-span-2 glass p-5 rounded-2xl border-l-4 border-l-emerald-500 flex items-center justify-between gap-4">
                         <div>
-                            <h4 class="font-semibold text-sm text-white">Diseño UX: Experiencia de Usuario UX/UI + Figma</h4>
-                            <p class="text-xs text-slate-400">Udemy • 22.5 horas</p>
+                            <span class="text-xs font-bold text-emerald-400 uppercase">Título Profesional • IESTPFFAA</span>
+                            <h3 class="font-bold text-white text-base mt-0.5">Profesional Técnico en Computación e Informática</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Instituto de Educación Superior Tecnológico Público de las Fuerzas Armadas</p>
                         </div>
-                        <span class="text-xs text-slate-400 shrink-0">Set. 2023</span>
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold shrink-0">Dic 2020</span>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
-                        <div>
-                            <h4 class="font-semibold text-sm text-white">Master en CSS3 Avanzado: Maqueta 3 sitios web</h4>
-                            <p class="text-xs text-slate-400">Udemy • 27 horas</p>
-                        </div>
-                        <span class="text-xs text-slate-400 shrink-0">Set. 2023</span>
+                    <!-- Cursos Udemy y PROMPERU -->
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Diseño UX: Experiencia de Usuario UX/UI + Figma 2023</h4>
+                        <p class="text-xs text-slate-400 mt-1">Duración: 22.5 horas</p>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
-                        <div>
-                            <h4 class="font-semibold text-sm text-white">Máster en PHP 8, POO, MVC, MySQL, Laravel 8</h4>
-                            <p class="text-xs text-slate-400">Udemy • 62.5 horas</p>
-                        </div>
-                        <span class="text-xs text-slate-400 shrink-0">Set. 2023</span>
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Master en CSS3 Avanzado: Maqueta 3 sitios web profesionales</h4>
+                        <p class="text-xs text-slate-400 mt-1">Duración: 27 horas</p>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
-                        <div>
-                            <h4 class="font-semibold text-sm text-white">Máster en Front-End: WordPress, PHP y Angular</h4>
-                            <p class="text-xs text-slate-400">Udemy • 31 horas</p>
-                        </div>
-                        <span class="text-xs text-slate-400 shrink-0">May. 2021</span>
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 29 Sep 2023</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Máster en PHP 8, POO, MVC, MySQL, Laravel 8, CodeIgniter 4</h4>
+                        <p class="text-xs text-slate-400 mt-1">Duración: 62.5 horas</p>
                     </div>
 
-                    <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
-                        <div>
-                            <h4 class="font-semibold text-sm text-white">Programa de Marketing Digital</h4>
-                            <p class="text-xs text-slate-400">PROMPERÚ • 45 horas</p>
-                        </div>
-                        <span class="text-xs text-slate-400 shrink-0">Mar. 2019</span>
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 12 May 2021</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Máster en Front-End: Crea Temas para WordPress, PHP, Angular</h4>
+                        <p class="text-xs text-slate-400 mt-1">Duración: 31 horas</p>
+                    </div>
+
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-indigo-400 font-semibold">Udemy • 23 Ene 2020</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Adobe Photoshop, Illustrator, InDesign (Tutos minute)</h4>
+                        <p class="text-xs text-slate-400 mt-1">Duración: 2.5 horas</p>
+                    </div>
+
+                    <div class="glass p-4 rounded-xl card-interactive">
+                        <p class="text-xs text-pink-400 font-semibold">PROMPERÚ • Feb – Mar 2019</p>
+                        <h4 class="font-bold text-sm text-white mt-1">Programa de Marketing Digital</h4>
+                        <p class="text-xs text-slate-400 mt-1">Formación especializada • 45 horas</p>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Footer / Contacto -->
-    <footer id="contacto" class="py-20 border-t border-slate-800/80 bg-slate-950">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">¿Listo para empezar?</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3">Construyamos tu próximo producto digital</h2>
-            <p class="text-slate-400 mt-4 max-w-xl mx-auto text-sm md:text-base">
-                Si buscas un diseñador capaz de conceptualizar prototipos UX/UI y llevarlos a código limpio y funcional, escríbeme directamente.
+    <!-- FOOTER / CONTACTO CON ENLACES DIRECTOS -->
+    <footer id="contacto" class="py-20 border-t border-slate-800/90 bg-slate-950/90 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-widest">
+                Contacto Directo
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">
+                ¿Necesitas diseñar un prototipo en Figma o desarrollar tu próxima web?
+            </h2>
+            <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm sm:text-base">
+                Estoy disponible para proyectos de diseño web, consultoría UX/UI y desarrollo Front-End. Contáctame por cualquiera de estos canales:
             </p>
 
             <div class="mt-8 flex flex-wrap justify-center gap-4">
-                <a href="mailto:castillo2000edu@gmail.com" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition flex items-center gap-2">
-                    <span class="material-icons-round text-lg">email</span>
-                    castillo2000edu@gmail.com
+                <a href="https://wa.me/51925306039?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte." target="_blank" class="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-600/25">
+                    <span class="material-icons-round text-lg">whatsapp</span>
+                    WhatsApp: +51 925 306 039
                 </a>
-                <a href="https://wa.me/51925306039" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-800 text-white font-semibold text-sm transition flex items-center gap-2">
-                    <span class="material-icons-round text-lg text-emerald-400">call</span>
-                    +51 925 306 039
+                <a href="mailto:Castillo2000edu@gmail.com" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-indigo-600/25">
+                    <span class="material-icons-round text-lg">email</span>
+                    Castillo2000edu@gmail.com
+                </a>
+                <a href="https://github.com/eduardocsr" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-800 text-white font-semibold text-sm transition flex items-center gap-2">
+                    <span class="material-icons-round text-lg text-slate-300">code</span>
+                    GitHub (@eduardocsr)
                 </a>
             </div>
 
-            <p class="text-xs text-slate-600 mt-14">
-                © 2026 Ruitor Eduardo Castillo Salazar • Lima, Perú.
-            </p>
+            <div class="mt-10 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>📍 Las Cascadas – Santa Anita, Lima, Perú</p>
+                <p>© 2026 Ruitor Eduardo Castillo Salazar • Diseñador Web & UI/UX</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Script para animaciones suaves al hacer scroll -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
 </body>
 </html>
