@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ruitor Eduardo Castillo Salazar | Diseñador Web & Especialista UX/UI</title>
+    <!-- Resolve the theme before external assets and the first paint. -->
+    <script id="theme-bootstrap">
+        (() => {
+            const root = document.documentElement;
+            const system = window.matchMedia('(prefers-color-scheme: dark)');
+            const valid = value => value === 'dark' || value === 'light';
+            let preference = null;
+            try { const saved = localStorage.getItem('theme'); if (valid(saved)) preference = saved; } catch (_) {}
+            function apply() {
+                const dark = preference ? preference === 'dark' : system.matches;
+                root.classList.toggle('dark', dark);
+                root.style.colorScheme = dark ? 'dark' : 'light';
+                const button = document.getElementById('theme-toggle');
+                if (button) {
+                    const label = dark ? 'Activar modo claro' : 'Activar modo oscuro';
+                    button.setAttribute('aria-label', label);
+                    button.setAttribute('title', label);
+                }
+            }
+            window.PortfolioTheme = Object.freeze({
+                toggle() {
+                    preference = root.classList.contains('dark') ? 'light' : 'dark';
+                    try { localStorage.setItem('theme', preference); } catch (_) {}
+                    apply();
+                }
+            });
+            apply();
+            system.addEventListener('change', () => { if (!preference) apply(); });
+            window.addEventListener('storage', event => {
+                if (event.key !== 'theme' && event.key !== null) return;
+                if (event.storageArea && event.storageArea !== window.localStorage) return;
+                preference = valid(event.newValue) ? event.newValue : null;
+                apply();
+            });
+            document.addEventListener('DOMContentLoaded', () => {
+                apply();
+                document.getElementById('theme-toggle').addEventListener('click', window.PortfolioTheme.toggle);
+            }, {once:true});
+        })();
+    </script>
+    <style id="theme-critical">
+        :root { color-scheme:light; --page:#f8fafc; --ink:#0f172a; --muted:#475569; --line:#cbd5e1; --surface:#fff; --soft:#f1f5f9; --link:#4338ca; --glass:rgba(255,255,255,.8); --glass-strong:rgba(255,255,255,.95); --grid:rgba(15,23,42,.04); }
+        html.dark { color-scheme:dark; --page:#020617; --ink:#f1f5f9; --muted:#94a3b8; --line:#1e293b; --surface:#0f172a; --soft:#1e293b; --link:#c7d2fe; --glass:rgba(15,23,42,.8); --glass-strong:rgba(15,23,42,.95); --grid:rgba(255,255,255,.025); }
+        html, body { background:var(--page); color:var(--ink); }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +56,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -32,25 +78,25 @@
     </script>
     <style>
         body {
-            background-color: #060913;
-            color: #f8fafc;
+            background-color: var(--page);
+            color: var(--ink);
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
         .bg-grid {
             background-size: 36px 36px;
             background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+                linear-gradient(to right, var(--grid) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
         }
         .glass {
-            background: rgba(15, 23, 42, 0.65);
+            background: var(--glass);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--line);
         }
         .glass-strong {
-            background: rgba(15, 23, 42, 0.92);
+            background: var(--glass-strong);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(99, 102, 241, 0.28);
@@ -100,6 +146,55 @@
         .marquee-track:hover {
             animation-play-state: paused;
         }
+
+        #proyectos { scroll-margin-top: 90px; }
+        .project-toolbar { display:flex; gap:14px; align-items:stretch; }
+        .project-search,.project-filter { display:flex; align-items:center; gap:12px; border:1px solid var(--line); background:var(--surface); border-radius:12px; padding:12px 16px; color:var(--muted); }
+        .project-search { flex:1; }
+        .project-search input,.project-filter select { width:100%; min-width:0; background:transparent; color:var(--ink); outline:none; font-size:13px; }
+        .project-filter { max-width:340px; }
+        .project-filter span { font-size:11px; }
+        .project-filter select option { background:var(--surface); }
+        .project-search:focus-within,.project-filter:focus-within { border-color:#a5b4fc; box-shadow:0 0 0 2px #818cf833; }
+        .project-count { color:var(--muted); font-size:12px; margin:20px 0 14px; }
+        .project-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; align-items:start; }
+        .project-card { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px; position:relative; overflow:hidden; }
+        .project-card:before { content:''; position:absolute; top:0; left:22px; right:22px; height:2px; background:var(--project-accent); opacity:.7; }
+        .project-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+        .project-initial { display:grid; place-items:center; width:40px; height:40px; border:1px solid var(--line); border-radius:11px; color:var(--project-accent-light); background:var(--soft); font-weight:800; font-size:12px; }
+        .project-number { color:#64748b; font-size:11px; font-family:monospace; }
+        .project-entity { color:var(--muted); font-size:10px; letter-spacing:.06em; text-transform:uppercase; line-height:1.6; }
+        .project-card h3 { font-weight:800; font-size:17px; line-height:1.45; margin:8px 0; overflow-wrap:anywhere; }
+        .project-category { color:var(--project-accent-light); font-size:11px; line-height:1.6; min-height:36px; }
+        .project-tags { display:flex; flex-wrap:wrap; gap:6px; margin:16px 0 20px; }
+        .project-tag { color:var(--muted); background:var(--soft); border:1px solid var(--line); border-radius:6px; padding:4px 7px; font-size:10px; }
+        .project-card details { border-top:1px solid var(--line); padding-top:14px; }
+        .project-card summary { cursor:pointer; color:var(--link); font-size:12px; font-weight:600; }
+        .project-card summary .less,.project-card details[open] summary .more { display:none; }
+        .project-card details[open] summary .less { display:inline; }
+        .project-description { color:var(--muted); font-size:13px; line-height:1.8; margin:14px 0; }
+        .project-link { display:inline-flex; align-items:center; gap:6px; color:var(--link); font-size:12px; margin-top:5px; }
+        .project-pagination { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px; margin-top:28px; }
+        .project-pagination button,.project-reset { border:1px solid var(--line); border-radius:9px; padding:10px 14px; color:var(--muted); font-size:12px; background:var(--surface); }
+        .project-pagination button[aria-current="page"] { background:#4f46e5; color:white; border-color:#6366f1; }
+        .project-pagination button:disabled { opacity:.35; cursor:not-allowed; }
+        #proyectos button:focus-visible,#proyectos summary:focus-visible,#proyectos a:focus-visible { outline:2px solid #a5b4fc; outline-offset:4px; }
+        .project-empty { grid-column:1/-1; padding:44px 20px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:16px; }
+        .project-empty p { margin-bottom:16px; }
+        @media(max-width:1000px) { .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media(max-width:600px) { .project-grid { grid-template-columns:1fr; } .project-toolbar { flex-direction:column; } .project-filter { max-width:none; } .project-card { padding:20px; } }
+
+        .dark .project-initial,.dark .project-category { color:var(--project-accent); }
+        :root:not(.dark) .gradient-text { background-image:linear-gradient(135deg,#1d4ed8,#7e22ce,#be185d); }
+        #perfil strong { color:var(--ink); }
+        #perfil strong[class*="text-indigo"] { color:var(--link); }
+        #theme-toggle { position:relative; width:42px; height:42px; flex-shrink:0; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--ink); }
+        #theme-toggle:focus-visible { outline:3px solid #818cf8; outline-offset:3px; }
+        #theme-toggle svg { position:absolute; width:20px; height:20px; left:10px; top:10px; transition:transform .25s ease,opacity .25s ease; }
+        #theme-toggle .theme-sun { opacity:0; transform:rotate(-90deg) scale(.5); }
+        .dark #theme-toggle .theme-sun { opacity:1; transform:rotate(0) scale(1); }
+        .dark #theme-toggle .theme-moon { opacity:0; transform:rotate(90deg) scale(.5); }
+        @media(prefers-reduced-motion:reduce) { #theme-toggle svg { transition:none; } html { scroll-behavior:auto; } }
     </style>
 </head>
 <body class="antialiased selection:bg-indigo-500 selection:text-white bg-grid pb-20 md:pb-0">
@@ -109,52 +204,56 @@
     <div class="fixed bottom-[-10%] right-[-15%] w-[320px] md:w-[500px] h-[320px] md:h-[500px] bg-fuchsia-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
     <!-- Navbar fija -->
-    <header class="fixed top-0 left-0 right-0 z-40 glass border-b border-slate-800/80">
+    <header class="fixed top-0 left-0 right-0 z-40 glass border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
             <a href="#inicio" class="text-base sm:text-lg font-extrabold tracking-tight flex items-center gap-2.5 group">
                 <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-500/20">EC</span>
-                <span>Eduardo<span class="text-indigo-400">Castillo</span></span>
+                <span>Eduardo<span class="text-indigo-700 dark:text-indigo-400">Castillo</span></span>
             </a>
 
-            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
-                <a href="#perfil" class="hover:text-indigo-400 transition">Perfil</a>
-                <a href="#especialidades" class="hover:text-indigo-400 transition">Qué hago</a>
-                <a href="#proyectos" class="hover:text-indigo-400 transition">Proyectos</a>
-                <a href="#experiencia" class="hover:text-indigo-400 transition">Experiencia</a>
-                <a href="#educacion" class="hover:text-indigo-400 transition">Cursos</a>
+            <nav class="hidden xl:flex items-center gap-7 text-sm font-medium text-slate-700 dark:text-slate-300">
+                <a href="#perfil" class="hover:text-indigo-700 dark:hover:text-indigo-400 transition">Perfil</a>
+                <a href="#especialidades" class="hover:text-indigo-700 dark:hover:text-indigo-400 transition">Qué hago</a>
+                <a href="#proyectos" class="hover:text-indigo-700 dark:hover:text-indigo-400 transition">Proyectos</a>
+                <a href="#experiencia" class="hover:text-indigo-700 dark:hover:text-indigo-400 transition">Experiencia</a>
+                <a href="#educacion" class="hover:text-indigo-700 dark:hover:text-indigo-400 transition">Cursos</a>
             </nav>
 
             <div class="flex items-center gap-2.5">
-                <a id="nav-whatsapp" href="https://wa.me/51925306039" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold transition">
+                <button id="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+                    <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                    <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13.1A9 9 0 0 1 10.9 3.1 9 9 0 1 0 20.9 13.1Z"/></svg>
+                </button>
+                <a id="nav-whatsapp" href="https://wa.me/51925306039" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     WhatsApp Directo
                 </a>
                 <a href="#contacto" class="hidden md:inline-flex px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition shadow-lg shadow-indigo-600/30">
                     Contactar
                 </a>
-                <button id="menu-btn" aria-label="Abrir menú" class="md:hidden w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-200 active:scale-95 transition">
+                <button id="menu-btn" aria-label="Abrir menú" class="xl:hidden w-10 h-10 rounded-xl glass flex items-center justify-center text-slate-700 dark:text-slate-200 active:scale-95 transition">
                     <span id="menu-icon" class="material-icons-round text-2xl">menu</span>
                 </button>
             </div>
         </div>
 
         <!-- Menú Desplegable Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden glass-strong border-b border-slate-800 px-5 pt-3 pb-6 space-y-3">
-            <div class="grid grid-cols-2 gap-2 text-sm font-semibold text-slate-200">
-                <a href="#perfil" class="mobile-link p-3 rounded-xl bg-slate-900/70 flex items-center gap-2">
-                    <span class="material-icons-round text-indigo-400 text-lg">person</span> Perfil
+        <div id="mobile-menu" class="hidden xl:hidden glass-strong border-b border-slate-200 dark:border-slate-800 px-5 pt-3 pb-6 space-y-3">
+            <div class="grid grid-cols-2 gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <a href="#perfil" class="mobile-link p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 flex items-center gap-2">
+                    <span class="material-icons-round text-indigo-700 dark:text-indigo-400 text-lg">person</span> Perfil
                 </a>
-                <a href="#especialidades" class="mobile-link p-3 rounded-xl bg-slate-900/70 flex items-center gap-2">
-                    <span class="material-icons-round text-purple-400 text-lg">auto_awesome</span> Qué hago
+                <a href="#especialidades" class="mobile-link p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 flex items-center gap-2">
+                    <span class="material-icons-round text-purple-700 dark:text-purple-400 text-lg">auto_awesome</span> Qué hago
                 </a>
-                <a href="#proyectos" class="mobile-link p-3 rounded-xl bg-slate-900/70 flex items-center gap-2">
-                    <span class="material-icons-round text-pink-400 text-lg">work_outline</span> Proyectos
+                <a href="#proyectos" class="mobile-link p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 flex items-center gap-2">
+                    <span class="material-icons-round text-pink-700 dark:text-pink-400 text-lg">work_outline</span> Proyectos
                 </a>
-                <a href="#experiencia" class="mobile-link p-3 rounded-xl bg-slate-900/70 flex items-center gap-2">
-                    <span class="material-icons-round text-emerald-400 text-lg">timeline</span> Experiencia
+                <a href="#experiencia" class="mobile-link p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 flex items-center gap-2">
+                    <span class="material-icons-round text-emerald-700 dark:text-emerald-400 text-lg">timeline</span> Experiencia
                 </a>
-                <a href="#educacion" class="mobile-link col-span-2 p-3 rounded-xl bg-slate-900/70 flex items-center justify-center gap-2">
-                    <span class="material-icons-round text-amber-400 text-lg">school</span> Habilidades & Cursos
+                <a href="#educacion" class="mobile-link col-span-2 p-3 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 flex items-center justify-center gap-2">
+                    <span class="material-icons-round text-amber-700 dark:text-amber-400 text-lg">school</span> Habilidades & Cursos
                 </a>
             </div>
             <a id="mobile-menu-wa" href="https://wa.me/51925306039" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
@@ -168,8 +267,8 @@
         <div class="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
             <div class="lg:col-span-7">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-[11px] sm:text-xs font-semibold text-indigo-300 mb-5 border border-indigo-500/30">
-                    <span class="material-icons-round text-sm text-indigo-400">verified</span>
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-[11px] sm:text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-5 border border-indigo-500/30">
+                    <span class="material-icons-round text-sm text-indigo-700 dark:text-indigo-400">verified</span>
                     <span id="hero-badge">+7 años creando experiencias digitales • Lima, Perú</span>
                 </div>
 
@@ -177,7 +276,7 @@
                     <span id="hero-title-1">Diseñador Web &</span> <span id="hero-title-grad" class="gradient-text">Especialista UI/UX</span>
                 </h1>
 
-                <p id="perfil" class="mt-5 text-sm sm:text-lg text-slate-300 leading-relaxed"></p>
+                <p id="perfil" class="mt-5 text-sm sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed"></p>
 
                 <div class="mt-7 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                     <a href="#proyectos" class="px-6 py-3.5 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-indigo-50 transition flex items-center justify-center gap-2 shadow-xl">
@@ -185,67 +284,67 @@
                         <span class="material-icons-round text-base">arrow_downward</span>
                     </a>
                     <div class="grid grid-cols-2 sm:flex gap-2.5">
-                        <a id="hero-wa" href="https://wa.me/51925306039" target="_blank" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
-                            <span class="material-icons-round text-base text-emerald-400">chat</span>
+                        <a id="hero-wa" href="https://wa.me/51925306039" target="_blank" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-200/80 dark:hover:bg-slate-800/80 text-slate-900 dark:text-slate-100 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <span class="material-icons-round text-base text-emerald-700 dark:text-emerald-400">chat</span>
                             WhatsApp
                         </a>
-                        <a id="hero-email" href="mailto:Castillo2000edu@gmail.com" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-800/80 text-slate-200 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
-                            <span class="material-icons-round text-base text-indigo-400">mail</span>
+                        <a id="hero-email" href="mailto:Castillo2000edu@gmail.com" class="px-4 sm:px-5 py-3.5 rounded-xl glass hover:bg-slate-200/80 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <span class="material-icons-round text-base text-indigo-700 dark:text-indigo-400">mail</span>
                             Enviar Correo
                         </a>
                     </div>
                 </div>
 
                 <!-- Micro-métricas dinámicas -->
-                <div id="hero-metricas" class="mt-8 pt-7 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
+                <div id="hero-metricas" class="mt-8 pt-7 border-t border-slate-200/80 dark:border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
             </div>
 
             <!-- Columna Derecha: Tarjeta Interactiva Flotante -->
             <div class="lg:col-span-5 relative">
                 <div class="glass-strong rounded-2xl p-4 sm:p-6 shadow-2xl md:animate-float relative overflow-hidden">
-                    <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-800">
+                    <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-200 dark:border-slate-800">
                         <div class="flex items-center gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
                             <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                         </div>
-                        <span class="font-mono text-[11px] text-indigo-300 bg-indigo-500/10 px-2.5 py-0.5 rounded-md border border-indigo-500/20">
+                        <span class="font-mono text-[11px] text-indigo-700 dark:text-indigo-300 bg-indigo-500/10 px-2.5 py-0.5 rounded-md border border-indigo-500/20">
                             figma_to_code.ts
                         </span>
                     </div>
 
                     <div class="space-y-3">
-                        <div class="p-3 sm:p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start sm:items-center gap-3">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0 mt-0.5 sm:mt-0">
+                        <div class="p-3 sm:p-3.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 flex items-start sm:items-center gap-3">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-700 dark:text-pink-400 shrink-0 mt-0.5 sm:mt-0">
                                 <span class="material-icons-round text-lg sm:text-xl">architecture</span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between gap-2 text-xs font-semibold">
-                                    <span class="text-white truncate">Prototipado & Auto Layout</span>
-                                    <span class="text-emerald-400 shrink-0 text-[11px]">Validado</span>
+                                    <span class="text-slate-900 dark:text-slate-100 truncate">Prototipado & Auto Layout</span>
+                                    <span class="text-emerald-700 dark:text-emerald-400 shrink-0 text-[11px]">Validado</span>
                                 </div>
-                                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5 leading-snug">Flujos interactivos y pruebas de usabilidad antes de programar.</p>
+                                <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-snug">Flujos interactivos y pruebas de usabilidad antes de programar.</p>
                             </div>
                         </div>
 
-                        <div class="p-3 sm:p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-start sm:items-center gap-3">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0 mt-0.5 sm:mt-0">
+                        <div class="p-3 sm:p-3.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 flex items-start sm:items-center gap-3">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-700 dark:text-indigo-400 shrink-0 mt-0.5 sm:mt-0">
                                 <span class="material-icons-round text-lg sm:text-xl">grid_view</span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between gap-2 text-xs font-semibold">
-                                    <span class="text-white truncate">Maquetación Pixel-Perfect</span>
-                                    <span class="text-indigo-400 shrink-0 text-[11px]">Grid / Flex</span>
+                                    <span class="text-slate-900 dark:text-slate-100 truncate">Maquetación Pixel-Perfect</span>
+                                    <span class="text-indigo-700 dark:text-indigo-400 shrink-0 text-[11px]">Grid / Flex</span>
                                 </div>
-                                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5 leading-snug">Arquitectura limpia en Angular, Tailwind CSS, SCSS y WordPress.</p>
+                                <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-snug">Arquitectura limpia en Angular, Tailwind CSS, SCSS y WordPress.</p>
                             </div>
                         </div>
 
-                        <div class="p-3.5 rounded-xl bg-slate-950/90 border border-slate-800/90 font-mono text-[11px] sm:text-xs text-slate-300 leading-relaxed overflow-x-auto">
-                            <span class="text-purple-400">const</span> <span class="text-blue-400">perfil</span> = {<br>
-                            &nbsp;&nbsp;rol: <span class="text-emerald-300">'Diseñador Web & UX/UI'</span>,<br>
-                            &nbsp;&nbsp;diseño: [<span class="text-amber-300">'Figma 2026'</span>, <span class="text-amber-300">'Prototipos'</span>],<br>
-                            &nbsp;&nbsp;codigo: [<span class="text-amber-300">'Angular'</span>, <span class="text-amber-300">'Tailwind'</span>, <span class="text-amber-300">'SCSS'</span>]<br>
+                        <div class="p-3.5 rounded-xl bg-slate-50/90 dark:bg-slate-950/90 border border-slate-200/90 dark:border-slate-800/90 font-mono text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 leading-relaxed overflow-x-auto">
+                            <span class="text-purple-700 dark:text-purple-400">const</span> <span class="text-blue-700 dark:text-blue-400">perfil</span> = {<br>
+                            &nbsp;&nbsp;rol: <span class="text-emerald-700 dark:text-emerald-300">'Diseñador Web & UX/UI'</span>,<br>
+                            &nbsp;&nbsp;diseño: [<span class="text-amber-700 dark:text-amber-300">'Figma 2026'</span>, <span class="text-amber-700 dark:text-amber-300">'Prototipos'</span>],<br>
+                            &nbsp;&nbsp;codigo: [<span class="text-amber-700 dark:text-amber-300">'Angular'</span>, <span class="text-amber-700 dark:text-amber-300">'Tailwind'</span>, <span class="text-amber-700 dark:text-amber-300">'SCSS'</span>]<br>
                             };
                         </div>
                     </div>
@@ -256,7 +355,7 @@
     </section>
 
     <!-- CINTA DE ESPECIALIDADES DINÁMICA -->
-    <div class="py-3.5 border-y border-slate-800/80 bg-slate-900/60 overflow-hidden relative z-10">
+    <div class="py-3.5 border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-100/60 dark:bg-slate-900/60 overflow-hidden relative z-10">
         <div id="marquee-container" class="marquee-track gap-3 sm:gap-5 items-center px-3"></div>
     </div>
 
@@ -264,9 +363,9 @@
     <section id="especialidades" class="py-14 md:py-20 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6">
             <div class="max-w-2xl mb-8 md:mb-12 reveal active">
-                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Valor Diferencial</span>
+                <span class="text-indigo-700 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest">Valor Diferencial</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Más que páginas web: diseño productos completos</h2>
-                <p class="text-slate-400 mt-2 text-sm sm:text-base">
+                <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base">
                     Integro el diseño visual con la lógica del desarrollo para que cada proyecto sea estético, rápido y fácil de usar.
                 </p>
             </div>
@@ -275,18 +374,24 @@
     </section>
 
     <!-- PROYECTOS DESTACADOS -->
-    <section id="proyectos" class="py-14 md:py-20 bg-slate-900/30 border-y border-slate-800/70 relative z-10">
+    <section id="proyectos" class="py-14 md:py-20 bg-slate-100/30 dark:bg-slate-900/30 border-y border-slate-200/70 dark:border-slate-800/70 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-3 reveal active">
                 <div>
-                    <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Portafolio Seleccionado</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Proyectos Destacados</h2>
+                    <span class="text-indigo-700 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest">Portafolio Seleccionado</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Explora mis proyectos</h2>
                 </div>
-                <p class="text-slate-400 text-xs sm:text-sm max-w-md">
+                <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm max-w-md">
                     Plataformas institucionales, sistemas web y comercio electrónico desarrollados para el sector público y privado.
                 </p>
             </div>
-            <div id="proyectos-grid" class="grid md:grid-cols-2 gap-5 sm:gap-7"></div>
+            <div class="project-toolbar">
+                <label class="project-search"><span class="material-icons-round" aria-hidden="true">search</span><span class="sr-only">Buscar proyectos</span><input id="project-search" type="search" placeholder="Buscar por proyecto, tecnología o tema…" oninput="updateProjectSearch(this.value)"></label>
+                <label class="project-filter"><span>Entidad</span><select id="project-entity" onchange="updateProjectEntity(this.value)"><option value="">Todas las entidades</option></select></label>
+            </div>
+            <p id="project-count" class="project-count" role="status" aria-live="polite"></p>
+            <div id="proyectos-grid" class="project-grid" tabindex="-1" aria-label="Resultados de proyectos"></div>
+            <nav id="project-pagination" class="project-pagination" aria-label="Páginas de proyectos"></nav>
         </div>
     </section>
 
@@ -294,20 +399,20 @@
     <section id="experiencia" class="py-14 md:py-20 relative z-10">
         <div class="max-w-5xl mx-auto px-5 sm:px-6">
             <div class="mb-8 md:mb-12 reveal active">
-                <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Trayectoria</span>
+                <span class="text-indigo-700 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest">Trayectoria</span>
                 <h2 class="text-2xl sm:text-3xl font-extrabold mt-1.5">Experiencia Profesional</h2>
-                <p class="text-slate-400 text-xs sm:text-sm mt-1">Historial completo de servicios y cargos desempeñados.</p>
+                <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1">Historial completo de servicios y cargos desempeñados.</p>
             </div>
-            <div id="experiencia-list" class="relative md:border-l-2 md:border-slate-800 md:ml-4 md:pl-8 space-y-4 sm:space-y-6"></div>
+            <div id="experiencia-list" class="relative md:border-l-2 md:border-slate-200 dark:md:border-slate-800 md:ml-4 md:pl-8 space-y-4 sm:space-y-6"></div>
         </div>
     </section>
 
     <!-- HABILIDADES Y EDUCACIÓN -->
-    <section id="educacion" class="py-14 md:py-20 bg-slate-900/30 border-t border-slate-800/70 relative z-10">
+    <section id="educacion" class="py-14 md:py-20 bg-slate-100/30 dark:bg-slate-900/30 border-t border-slate-200/70 dark:border-slate-800/70 relative z-10">
         <div class="max-w-6xl mx-auto px-5 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12">
             <div class="lg:col-span-5 space-y-4 sm:space-y-5 reveal active">
                 <div>
-                    <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Stack Técnico</span>
+                    <span class="text-indigo-700 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest">Stack Técnico</span>
                     <h2 class="text-2xl font-extrabold mt-1.5">Habilidades & Herramientas</h2>
                 </div>
                 <div id="habilidades-list" class="space-y-4"></div>
@@ -315,7 +420,7 @@
 
             <div class="lg:col-span-7 reveal active">
                 <div class="mb-5">
-                    <span class="text-indigo-400 font-bold text-xs uppercase tracking-widest">Formación & Certificaciones</span>
+                    <span class="text-indigo-700 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest">Formación & Certificaciones</span>
                     <h2 class="text-2xl font-extrabold mt-1.5">Educación y Cursos Especializados</h2>
                 </div>
                 <div id="educacion-grid" class="grid sm:grid-cols-2 gap-3.5 sm:gap-4"></div>
@@ -324,15 +429,15 @@
     </section>
 
     <!-- FOOTER / CONTACTO -->
-    <footer id="contacto" class="py-16 md:py-20 border-t border-slate-800/90 bg-slate-950/90 relative z-10">
+    <footer id="contacto" class="py-16 md:py-20 border-t border-slate-200/90 dark:border-slate-800/90 bg-slate-50/90 dark:bg-slate-950/90 relative z-10">
         <div class="max-w-4xl mx-auto px-5 sm:px-6 text-center reveal active">
-            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-widest">
+            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-widest">
                 Contacto Directo
             </span>
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-4 leading-tight">
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-4 leading-tight">
                 ¿Necesitas diseñar un prototipo en Figma o desarrollar tu próxima web?
             </h2>
-            <p class="text-slate-400 mt-3 max-w-xl mx-auto text-xs sm:text-base">
+            <p class="text-slate-600 dark:text-slate-400 mt-3 max-w-xl mx-auto text-xs sm:text-base">
                 Disponible para proyectos de diseño web, consultoría UX/UI y desarrollo Front-End.
             </p>
 
@@ -345,17 +450,17 @@
                     <span class="material-icons-round text-lg">email</span>
                     <span id="footer-email-text">Castillo2000edu@gmail.com</span>
                 </a>
-                <a id="footer-github" href="https://github.com/eduardocsr" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-800 text-white font-semibold text-sm transition flex items-center justify-center gap-2">
-                    <span class="material-icons-round text-lg text-slate-300">code</span>
+                <a id="footer-github" href="https://github.com/eduardocsr" target="_blank" class="px-6 py-3.5 rounded-xl glass hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 font-semibold text-sm transition flex items-center justify-center gap-2">
+                    <span class="material-icons-round text-lg text-slate-700 dark:text-slate-300">code</span>
                     GitHub (@eduardocsr)
                 </a>
             </div>
 
-            <div class="mt-10 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <div class="mt-10 pt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 dark:text-slate-500 gap-2">
                 <p id="footer-ubicacion">📍 Las Cascadas – Santa Anita, Lima, Perú</p>
                 <div class="flex items-center gap-3">
                     <p>© 2026 <span id="footer-nombre">Ruitor Eduardo Castillo Salazar</span> • Diseñador Web & UI/UX</p>
-                    <button onclick="openAdminModal()" title="Abrir Panel Administrable (Atajo: Alt + A)" class="text-slate-700 hover:text-indigo-400 transition flex items-center">
+                    <button onclick="openAdminModal()" title="Abrir Panel Administrable (Atajo: Alt + A)" class="text-slate-700 hover:text-indigo-700 dark:hover:text-indigo-400 transition flex items-center">
                         <span class="material-icons-round text-sm">settings</span>
                     </button>
                 </div>
@@ -364,7 +469,7 @@
     </footer>
 
     <!-- BARRA INFERIOR FLOTANTE SOLO PARA MOBILE -->
-    <div class="md:hidden fixed bottom-3 left-4 right-4 z-40 glass-strong rounded-2xl p-2 flex items-center justify-between gap-2 shadow-2xl border border-slate-700/80">
+    <div class="md:hidden fixed bottom-3 left-4 right-4 z-40 glass-strong rounded-2xl p-2 flex items-center justify-between gap-2 shadow-2xl border border-slate-200/80 dark:border-slate-700/80">
         <a id="bottom-wa" href="https://wa.me/51925306039" target="_blank" class="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5">
             <span class="material-icons-round text-base">chat</span>
             WhatsApp
@@ -373,7 +478,7 @@
             <span class="material-icons-round text-base">layers</span>
             Proyectos
         </a>
-        <a id="bottom-email" href="mailto:Castillo2000edu@gmail.com" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center shrink-0">
+        <a id="bottom-email" href="mailto:Castillo2000edu@gmail.com" class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center shrink-0">
             <span class="material-icons-round text-base">mail</span>
         </a>
     </div>
@@ -381,32 +486,32 @@
     <!-- ========================================================================= -->
     <!-- PANEL ADMINISTRABLE VISUAL (MODAL OCULTO: Se abre con ?admin, #admin o ⚙️) -->
     <!-- ========================================================================= -->
-    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
         <div class="glass-strong w-full max-w-5xl max-h-[92vh] rounded-2xl border border-indigo-500/40 shadow-2xl flex flex-col overflow-hidden">
             
             <!-- Header del CMS -->
-            <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+            <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-100/90 dark:bg-slate-900/90">
                 <div class="flex items-center gap-2.5">
                     <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
                         <span class="material-icons-round text-lg">tune</span>
                     </span>
                     <div>
-                        <h3 class="text-sm sm:text-base font-extrabold text-white">Panel Administrable del Portafolio</h3>
-                        <p class="text-[11px] text-slate-400">Edita en vivo y descarga tu <code class="text-indigo-300">datos.json</code> o publícalo directo a GitHub</p>
+                        <h3 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100">Panel Administrable del Portafolio</h3>
+                        <p class="text-[11px] text-slate-600 dark:text-slate-400">Edita en vivo y descarga tu <code class="text-indigo-700 dark:text-indigo-300">datos.json</code> o publícalo directo a GitHub</p>
                     </div>
                 </div>
-                <button onclick="closeAdminModal()" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                <button onclick="closeAdminModal()" class="w-9 h-9 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center">
                     <span class="material-icons-round">close</span>
                 </button>
             </div>
 
             <!-- Tabs del CMS -->
-            <div class="px-5 pt-3 border-b border-slate-800 flex gap-2 overflow-x-auto bg-slate-900/50 text-xs font-bold">
+            <div class="px-5 pt-3 border-b border-slate-200 dark:border-slate-800 flex gap-2 overflow-x-auto bg-slate-100/50 dark:bg-slate-900/50 text-xs font-bold">
                 <button onclick="switchAdminTab('tab-perfil')" id="btn-tab-perfil" class="admin-tab px-4 py-2.5 rounded-t-lg bg-indigo-600 text-white">1. Perfil & Contacto</button>
-                <button onclick="switchAdminTab('tab-proyectos')" id="btn-tab-proyectos" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">2. Proyectos</button>
-                <button onclick="switchAdminTab('tab-experiencia')" id="btn-tab-experiencia" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">3. Experiencia</button>
-                <button onclick="switchAdminTab('tab-educacion')" id="btn-tab-educacion" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-400 hover:text-white">4. Cursos & Habilidades</button>
-                <button onclick="switchAdminTab('tab-github')" id="btn-tab-github" class="admin-tab px-4 py-2.5 rounded-t-lg text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                <button onclick="switchAdminTab('tab-proyectos')" id="btn-tab-proyectos" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white">2. Proyectos</button>
+                <button onclick="switchAdminTab('tab-experiencia')" id="btn-tab-experiencia" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white">3. Experiencia</button>
+                <button onclick="switchAdminTab('tab-educacion')" id="btn-tab-educacion" class="admin-tab px-4 py-2.5 rounded-t-lg text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white">4. Cursos & Habilidades</button>
+                <button onclick="switchAdminTab('tab-github')" id="btn-tab-github" class="admin-tab px-4 py-2.5 rounded-t-lg text-emerald-700 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1">
                     <span class="material-icons-round text-sm">cloud_upload</span> Publicar en GitHub
                 </button>
             </div>
@@ -418,40 +523,40 @@
                 <div id="tab-perfil" class="admin-panel space-y-4">
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Badge Superior</label>
-                            <input id="adm-badge" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Badge Superior</label>
+                            <input id="adm-badge" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Nombre Completo</label>
-                            <input id="adm-nombre" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nombre Completo</label>
+                            <input id="adm-nombre" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Título Principal (Blanco)</label>
-                            <input id="adm-titulo1" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Título Principal (Blanco)</label>
+                            <input id="adm-titulo1" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Título Gradiente (Color)</label>
-                            <input id="adm-titulograd" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Título Gradiente (Color)</label>
+                            <input id="adm-titulograd" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-indigo-500 outline-none">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">Biografía / Sobre Mí (Acepta texto o etiquetas &lt;strong&gt;)</label>
-                        <textarea id="adm-bio" rows="4" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:border-indigo-500 outline-none"></textarea>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Biografía / Sobre Mí (Acepta texto o etiquetas &lt;strong&gt;)</label>
+                        <textarea id="adm-bio" rows="4" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:border-indigo-500 outline-none"></textarea>
                     </div>
 
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp (solo números, ej: 51925306039)</label>
-                            <input id="adm-wa" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">WhatsApp (solo números, ej: 51925306039)</label>
+                            <input id="adm-wa" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Teléfono a mostrar</label>
-                            <input id="adm-tel" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Teléfono a mostrar</label>
+                            <input id="adm-tel" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Correo Electrónico</label>
-                            <input id="adm-email" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Correo Electrónico</label>
+                            <input id="adm-email" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                     </div>
                 </div>
@@ -459,7 +564,7 @@
                 <!-- TAB 2: PROYECTOS -->
                 <div id="tab-proyectos" class="admin-panel hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <p class="text-slate-400 text-xs">Agrega, edita o elimina los proyectos de tu portafolio:</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs">Agrega, edita o elimina los proyectos de tu portafolio:</p>
                         <button onclick="addProyecto()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
                             <span class="material-icons-round text-sm">add</span> Nuevo Proyecto
                         </button>
@@ -470,7 +575,7 @@
                 <!-- TAB 3: EXPERIENCIA -->
                 <div id="tab-experiencia" class="admin-panel hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <p class="text-slate-400 text-xs">Administra tu historial laboral (separar varios periodos con coma):</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs">Administra tu historial laboral (separar varios periodos con coma):</p>
                         <button onclick="addExperiencia()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
                             <span class="material-icons-round text-sm">add</span> Nueva Experiencia
                         </button>
@@ -481,7 +586,7 @@
                 <!-- TAB 4: EDUCACIÓN Y CURSOS -->
                 <div id="tab-educacion" class="admin-panel hidden space-y-4">
                     <div class="flex items-center justify-between">
-                        <p class="text-slate-400 text-xs">Administra tus certificaciones, cursos y títulos:</p>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs">Administra tus certificaciones, cursos y títulos:</p>
                         <button onclick="addEducacion()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1">
                             <span class="material-icons-round text-sm">add</span> Nuevo Curso / Título
                         </button>
@@ -491,12 +596,12 @@
 
                 <!-- TAB 5: PUBLICAR DIRECTO EN GITHUB (SIN BASE DE DATOS) -->
                 <div id="tab-github" class="admin-panel hidden space-y-4">
-                    <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-slate-200 space-y-2">
-                        <h4 class="font-bold text-white flex items-center gap-2">
-                            <span class="material-icons-round text-indigo-400">info</span>
+                    <div class="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-slate-700 dark:text-slate-200 space-y-2">
+                        <h4 class="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                            <span class="material-icons-round text-indigo-700 dark:text-indigo-400">info</span>
                             ¿Cómo guardar los cambios gratis en tu GitHub?
                         </h4>
-                        <p class="text-xs text-slate-300 leading-relaxed">
+                        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                             Tienes <strong>2 opciones gratuitas</strong>:
                             <br>1. <strong>Sin configurar nada:</strong> Haz clic abajo en <em>"Descargar datos.json"</em> y sube ese archivo a tu repositorio de GitHub.
                             <br>2. <strong>Con 1 solo clic desde aquí:</strong> Coloca tu usuario, repositorio y un <em>Personal Access Token</em> de GitHub (se guarda solo en tu navegador) y presiona <em>"Publicar directo en GitHub"</em>.
@@ -505,22 +610,22 @@
 
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Usuario de GitHub</label>
-                            <input id="gh-owner" type="text" value="eduardocsr" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Usuario de GitHub</label>
+                            <input id="gh-owner" type="text" value="eduardocsr" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Nombre del Repositorio</label>
-                            <input id="gh-repo" type="text" value="portafolio" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nombre del Repositorio</label>
+                            <input id="gh-repo" type="text" value="portafolio" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Rama (Branch)</label>
-                            <input id="gh-branch" type="text" value="main" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Rama (Branch)</label>
+                            <input id="gh-branch" type="text" value="main" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">GitHub Personal Access Token (Opcional para publicar con 1 clic)</label>
-                        <input id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">GitHub Personal Access Token (Opcional para publicar con 1 clic)</label>
+                        <input id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
                     </div>
 
                     <div class="flex flex-wrap items-center gap-3 pt-2">
@@ -528,20 +633,20 @@
                             <span class="material-icons-round text-base">cloud_upload</span>
                             Guardar y Publicar directo en GitHub
                         </button>
-                        <span id="gh-status" class="text-xs font-semibold text-slate-300"></span>
+                        <span id="gh-status" class="text-xs font-semibold text-slate-700 dark:text-slate-300"></span>
                     </div>
                 </div>
 
             </div>
 
             <!-- Footer de Acciones del CMS -->
-            <div class="px-5 py-4 border-t border-slate-800 bg-slate-900/95 flex flex-wrap items-center justify-between gap-3">
-                <button onclick="resetLocalData()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 text-xs font-semibold transition">
+            <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-100/95 dark:bg-slate-900/95 flex flex-wrap items-center justify-between gap-3">
+                <button onclick="resetLocalData()" class="px-3.5 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-rose-950/60 text-slate-700 dark:text-slate-300 hover:text-rose-700 dark:hover:text-rose-300 text-xs font-semibold transition">
                     Restaurar original
                 </button>
                 <div class="flex flex-wrap items-center gap-2.5">
-                    <button onclick="applyAdminChanges()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1.5">
-                        <span class="material-icons-round text-sm text-indigo-400">visibility</span>
+                    <button onclick="applyAdminChanges()" class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold text-xs flex items-center gap-1.5">
+                        <span class="material-icons-round text-sm text-indigo-700 dark:text-indigo-400">visibility</span>
                         Previsualizar en vivo
                     </button>
                     <button onclick="downloadDatosJSON()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-600/30">
@@ -565,7 +670,7 @@
     "titulo_parte1": "Diseñador Web &",
     "titulo_gradiente": "Especialista UI/UX",
     "nombre_completo": "Ruitor Eduardo Castillo Salazar",
-    "bio": "Soy <strong class=\"text-white\">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class=\"text-indigo-300 font-semibold\">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.",
+    "bio": "Soy <strong class=\"text-white\">Ruitor Eduardo Castillo Salazar</strong>. Creo soluciones digitales innovadoras con un enfoque centrado en el usuario, combinando creatividad y análisis técnico. Llevo las ideas desde la conceptualización y el <strong class=\"text-indigo-700 dark:text-indigo-300 font-semibold\">prototipado interactivo en Figma</strong> hasta el desarrollo de sitios web intuitivos, accesibles y de alto rendimiento, colaborando en equipo para garantizar una navegación fluida y memorable.",
     "whatsapp": "51925306039",
     "telefono_mostrar": "+51 925 306 039",
     "email": "Castillo2000edu@gmail.com",
@@ -643,67 +748,201 @@
     }
   ],
   "proyectos": [
-    {
-      "categoria": "UX/UI • Prototipado • Front-End",
-      "entidad": "Oficina Nacional de Procesos Electorales",
-      "titulo": "ONPE – Plataforma Web Electoral & Sistemas UI",
-      "descripcion": "Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.",
-      "url": "https://www.gob.pe/onpe",
-      "texto_url": "Web Oficial",
-      "tema": "blue",
-      "tags": [
-        "Figma Prototypes",
-        "Angular",
-        "HTML5 / SCSS",
-        "Diseño Centrado en el Usuario"
-      ]
-    },
-    {
-      "categoria": "Sistemas Web Institucionales",
-      "entidad": "Ministerio de Salud del Perú",
-      "titulo": "MINSA – Sistema Web Institucional",
-      "descripcion": "Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.",
-      "url": "https://www.gob.pe/minsa",
-      "texto_url": "Web Oficial",
-      "tema": "cyan",
-      "tags": [
-        "UI/UX",
-        "Maquetación Web",
-        "JavaScript / Ajax",
-        "Bootstrap"
-      ]
-    },
-    {
-      "categoria": "E-Commerce & Conversión",
-      "entidad": "Emprendedora Textil S.A.C.",
-      "titulo": "Bangui Moda – Tienda E-Commerce",
-      "descripcion": "Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.",
-      "url": "",
-      "texto_url": "Sector Moda Textil",
-      "tema": "pink",
-      "tags": [
-        "Diseño Web",
-        "WordPress / E-Commerce",
-        "SEO / Google Analytics",
-        "Diseño Gráfico"
-      ]
-    },
-    {
-      "categoria": "Agencia & Productos Digitales",
-      "entidad": "Prístinet Agencia & OXPA Perú",
-      "titulo": "Sitios Corporativos & Mejora UX/UI",
-      "descripcion": "Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.",
-      "url": "",
-      "texto_url": "Corporativo",
-      "tema": "purple",
-      "tags": [
-        "Prototipado UI/UX",
-        "HTML / CSS / JS",
-        "Tailwind CSS",
-        "Marketing Digital"
-      ]
-    }
-  ],
+  {
+    "categoria": "UX/UI • Prototipado • Front-End",
+    "entidad": "Oficina Nacional de Procesos Electorales",
+    "titulo": "ONPE – Plataforma Web Electoral & Sistemas UI",
+    "descripcion": "Diseño de interfaces, prototipos interactivos en Figma y desarrollo de la plataforma web funcional para procesos electorales nacionales (FUNC 2024 y EG 2026), priorizando accesibilidad ciudadana y claridad en flujos críticos.",
+    "url": "https://www.gob.pe/onpe",
+    "texto_url": "Web Oficial",
+    "tema": "blue",
+    "tags": [
+      "Figma Prototypes",
+      "Angular",
+      "HTML5 / SCSS",
+      "Diseño Centrado en el Usuario"
+    ]
+  },
+  {
+    "categoria": "Sistemas Web Institucionales",
+    "entidad": "Ministerio de Salud del Perú",
+    "titulo": "MINSA – Sistema Web Institucional",
+    "descripcion": "Diseño de interfaces intuitivas y estructuración visual para sistemas web institucionales del sector salud en la Oficina de Innovación y Desarrollo Tecnológico, optimizando la gestión de información y usabilidad.",
+    "url": "https://www.gob.pe/minsa",
+    "texto_url": "Web Oficial",
+    "tema": "cyan",
+    "tags": [
+      "UI/UX",
+      "Maquetación Web",
+      "JavaScript / Ajax",
+      "Bootstrap"
+    ]
+  },
+  {
+    "categoria": "E-Commerce & Conversión",
+    "entidad": "Emprendedora Textil S.A.C.",
+    "titulo": "Bangui Moda – Tienda E-Commerce",
+    "descripcion": "Diseño web integral, catálogo interactivo y mantenimiento para tienda de moda textil peruana con experiencia de compra online optimizada para dispositivos móviles y campañas digitales.",
+    "url": "",
+    "texto_url": "Sector Moda Textil",
+    "tema": "pink",
+    "tags": [
+      "Diseño Web",
+      "WordPress / E-Commerce",
+      "SEO / Google Analytics",
+      "Diseño Gráfico"
+    ]
+  },
+  {
+    "categoria": "Agencia & Productos Digitales",
+    "entidad": "Prístinet Agencia & OXPA Perú",
+    "titulo": "Sitios Corporativos & Mejora UX/UI",
+    "descripcion": "Diseño de prototipos, interfaces intuitivas y desarrollo de sitios web a medida para múltiples clientes corporativos en Lima, alineando la identidad visual con objetivos comerciales y posicionamiento SEO/SEM.",
+    "url": "",
+    "texto_url": "Corporativo",
+    "tema": "purple",
+    "tags": [
+      "Prototipado UI/UX",
+      "HTML / CSS / JS",
+      "Tailwind CSS",
+      "Marketing Digital"
+    ]
+  },
+  {
+    "categoria": "Sistema institucional",
+    "entidad": "ONPE",
+    "titulo": "CEMM",
+    "descripcion": "Plataforma tecnológica que permite a los miembros de mesa registrar y validar sus datos, así como registrar la modalidad de pago mediante la cual podrán recibir la compensación económica correspondiente por el ejercicio del cargo en los procesos electorales.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "blue",
+    "tags": [
+      "Miembros de mesa",
+      "Registro",
+      "Validación",
+      "Pagos electorales"
+    ]
+  },
+  {
+    "categoria": "Financiamiento de campaña",
+    "entidad": "ONPE",
+    "titulo": "CLARIDAD FP CAMPAÑA",
+    "descripcion": "Permite a los candidatos registrar, presentar y, de ser necesario, rectificar la información financiera de su campaña, correspondiente a aportes, ingresos y gastos. Asimismo, facilita a la ONPE la gestión de expedientes, la verificación de la información financiera presentada, el seguimiento de su estado y nivel de cumplimiento, así como la generación de reportes para su control y supervisión.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "cyan",
+    "tags": [
+      "Finanzas electorales",
+      "Aportes",
+      "Ingresos y gastos",
+      "Reportes"
+    ]
+  },
+  {
+    "categoria": "Capacitación virtual",
+    "entidad": "ONPE",
+    "titulo": "ONPEDUCA CAE",
+    "descripcion": "Permite capacitar virtualmente a los Actores Electorales (Miembros de Mesa, Electores, Personeros) sobre el proceso electoral.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "purple",
+    "tags": [
+      "Capacitación",
+      "Actores electorales",
+      "Formación virtual"
+    ]
+  },
+  {
+    "categoria": "Capacitación institucional",
+    "entidad": "ONPE",
+    "titulo": "ONPEDUCA CLARIDAD",
+    "descripcion": "Moderniza y optimiza los procesos de capacitación virtual dirigidos a los candidatos y organizaciones políticas obligadas a presentar su información financiera de aportes, ingresos y gastos en un proceso electoral y que por diversos motivos no pueden participar de las capacitaciones presenciales programadas por la ONPE a nivel nacional.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "pink",
+    "tags": [
+      "Capacitación virtual",
+      "Candidatos",
+      "Organizaciones políticas",
+      "ONPE"
+    ]
+  },
+  {
+    "categoria": "Gestión de accesos",
+    "entidad": "ONPE",
+    "titulo": "SASA",
+    "descripcion": "Sistema que permite gestionar los permisos y accesos a los diferentes sistemas de información de la institución.",
+    "url": "",
+    "texto_url": "Sistema de acceso",
+    "tema": "blue",
+    "tags": [
+      "Permisos",
+      "Accesos",
+      "Seguridad",
+      "Sistemas institucionales"
+    ]
+  },
+  {
+    "categoria": "Control de ingreso",
+    "entidad": "ONPE",
+    "titulo": "SIGAP",
+    "descripcion": "Sistema que gestiona y controla el ingreso de personal, proveedores, equipos y movilidad a todas las sedes de la ONPE. El sistema permite el registro y seguimiento de accesos del personal bajo distintas modalidades, tales como locación de servicios, terceros y practicantes, así como el control de ingresos de proveedores, visitas e ingresos extraordinarios asociados a comisiones de servicio o jornadas extendidas, contribuyendo a fortalecer la seguridad, el orden y la trazabilidad de los accesos institucionales.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "cyan",
+    "tags": [
+      "Ingresos",
+      "Seguridad",
+      "Accesos",
+      "Trazabilidad"
+    ]
+  },
+  {
+    "categoria": "Gestión administrativa electoral",
+    "entidad": "ONPE",
+    "titulo": "SIGEA",
+    "descripcion": "Sistema que automatiza la gestión administrativa de las ODPE durante los procesos electorales, permitiendo administrar requerimientos, ejecución presupuestal, pagos, rendiciones, viáticos, planillas y reportes. Centraliza la información y fortalece el control, seguimiento y trazabilidad de la gestión financiera y operativa.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "purple",
+    "tags": [
+      "ODPE",
+      "Presupuesto",
+      "Pagos",
+      "Rendiciones"
+    ]
+  },
+  {
+    "categoria": "Operaciones electorales",
+    "entidad": "ONPE",
+    "titulo": "SISGOE",
+    "descripcion": "Sistema que permite registrar, monitorear y controlar las operaciones electorales de las ODPE en tiempo real, centralizando información sobre actividades, maestro de mesas, personal electoral, directorio, línea de tiempo e informes operativos, para fortalecer la toma de decisiones y la gestión electoral.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "pink",
+    "tags": [
+      "Operaciones electorales",
+      "Monitoreo",
+      "Mesas",
+      "Informes"
+    ]
+  },
+  {
+    "categoria": "Financiamiento público directo",
+    "entidad": "ONPE",
+    "titulo": "CLARIDAD FPD",
+    "descripcion": "Plataforma que permite gestionar el Financiamiento Público Directo de las organizaciones políticas, desde la consulta de los montos asignados y la presentación de solicitudes, hasta el registro de la rendición de cuentas de los ingresos y gastos. Asimismo, facilita a la ONPE el seguimiento, validación y verificación de los expedientes, permitiendo aprobar, observar o rechazar las solicitudes y efectuar el control de las rendiciones de cuentas.",
+    "url": "",
+    "texto_url": "Sistema ONPE",
+    "tema": "blue",
+    "tags": [
+      "Financiamiento público",
+      "Rendición de cuentas",
+      "Expedientes",
+      "Validación"
+    ]
+  }
+],
   "experiencia": [
     {
       "empresa": "Oficina Nacional de Procesos Electorales (ONPE)",
@@ -880,6 +1119,65 @@
   ]
 };
 
+        let projectCatalog = [];
+        let projectPage = 1;
+        let projectSearch = '';
+        let projectEntity = '';
+        const PROJECT_PAGE_SIZE = 6;
+        const projectEscape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const projectNormalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const projectEntityName = pr => /^(onpe|oficina nacional de procesos electorales)$/i.test((pr.entidad || '').trim()) ? 'ONPE' : (pr.entidad || 'Otras entidades');
+        function populateProjectEntities() {
+            const entities = [...new Set(projectCatalog.map(projectEntityName))];
+            if (!entities.includes(projectEntity)) projectEntity = '';
+            document.getElementById('project-entity').innerHTML = '<option value="">Todas las entidades</option>' + entities.map(entity => `<option value="${projectEscape(entity)}">${projectEscape(entity)}</option>`).join('');
+            document.getElementById('project-entity').value = projectEntity;
+        }
+        function updateProjectSearch(value) { projectSearch = value; projectPage = 1; renderProjects(); }
+        function updateProjectEntity(value) { projectEntity = value; projectPage = 1; renderProjects(); }
+        function resetProjects() {
+            projectSearch = ''; projectEntity = ''; projectPage = 1;
+            document.getElementById('project-search').value = '';
+            document.getElementById('project-entity').value = '';
+            renderProjects(); document.getElementById('project-search').focus();
+        }
+        function goProjectPage(page) {
+            projectPage = page; renderProjects();
+            document.getElementById('proyectos-grid').focus({preventScroll:true});
+            document.getElementById('proyectos').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block:'start'});
+        }
+        function renderProjects() {
+            const query = projectNormalize(projectSearch.trim());
+            const filtered = projectCatalog.map((pr,index) => ({pr,index})).filter(({pr}) =>
+                (!projectEntity || projectEntityName(pr) === projectEntity) &&
+                projectNormalize([pr.titulo,pr.entidad,pr.categoria,pr.descripcion,...(pr.tags || [])].join(' ')).includes(query));
+            const pages = Math.ceil(filtered.length / PROJECT_PAGE_SIZE);
+            projectPage = Math.max(1,Math.min(projectPage,pages || 1));
+            const start = (projectPage - 1) * PROJECT_PAGE_SIZE;
+            document.getElementById('project-count').textContent = filtered.length ? `Mostrando ${start + 1}–${Math.min(start + PROJECT_PAGE_SIZE,filtered.length)} de ${filtered.length} proyectos${query || projectEntity ? ` · ${projectCatalog.length} en total` : ''}` : 'No se encontraron proyectos';
+            document.getElementById('proyectos-grid').innerHTML = filtered.slice(start,start+PROJECT_PAGE_SIZE).map(({pr,index}) => {
+                const accent = ({blue:'#a5b4fc',cyan:'#67e8f9',pink:'#f9a8d4',purple:'#c4b5fd'})[pr.tema] || '#a5b4fc';
+                const tags = pr.tags || [];
+                let url = '';
+                try { const parsed = new URL(pr.url); if (['http:','https:'].includes(parsed.protocol)) url = parsed.href; } catch (_) {}
+                return `<article class="project-card" style="--project-accent:${accent};--project-accent-light:${({blue:'#4338ca',cyan:'#0e7490',pink:'#be185d',purple:'#7e22ce'})[pr.tema] || '#4338ca'}">
+                    <div class="project-card-top"><span class="project-initial" aria-hidden="true">${projectEscape(projectEntityName(pr).slice(0,2).toUpperCase())}</span><span class="project-number">${String(index+1).padStart(2,'0')}</span></div>
+                    <p class="project-entity">${projectEscape(pr.entidad)}</p>
+                    <h3>${projectEscape(pr.titulo)}</h3>
+                    <p class="project-category">${projectEscape(pr.categoria)}</p>
+                    <div class="project-tags">${tags.slice(0,2).map(tag=>`<span class="project-tag">${projectEscape(tag)}</span>`).join('')}${tags.length>2 ? `<span class="project-tag" aria-label="${tags.length-2} etiquetas adicionales en detalles">+${tags.length-2}</span>` : ''}</div>
+                    <details><summary><span class="more">Ver detalles</span><span class="less">Ocultar detalles</span><span class="sr-only"> de ${projectEscape(pr.titulo)}</span></summary>
+                    <p class="project-description">${projectEscape(pr.descripcion)}</p>
+                    ${tags.length>2 ? `<div class="project-tags">${tags.slice(2).map(tag=>`<span class="project-tag">${projectEscape(tag)}</span>`).join('')}</div>` : ''}
+                    ${url ? `<a class="project-link" href="${projectEscape(url)}" target="_blank" rel="noopener noreferrer">${projectEscape(pr.texto_url || 'Visitar proyecto')} <span aria-hidden="true">↗</span><span class="sr-only"> (abre en otra pestaña)</span></a>` : `<span class="project-entity">${projectEscape(pr.texto_url || '')}</span>`}
+                    </details></article>`;
+            }).join('') || '<div class="project-empty"><p>Prueba con otro nombre, tecnología o entidad.</p><button class="project-reset" onclick="resetProjects()">Limpiar filtros</button></div>';
+            document.getElementById('project-pagination').innerHTML = pages > 1 ?
+                `<button onclick="goProjectPage(${projectPage-1})" ${projectPage===1 ? 'disabled' : ''} aria-label="Página anterior">← Anterior</button>` +
+                Array.from({length:pages},(_,i)=>`<button onclick="goProjectPage(${i+1})" aria-label="Página ${i+1}" ${projectPage===i+1 ? 'aria-current="page"' : ''}>${i+1}</button>`).join('') +
+                `<button onclick="goProjectPage(${projectPage+1})" ${projectPage===pages ? 'disabled' : ''} aria-label="Página siguiente">Siguiente →</button>` : '';
+        }
+
         let portfolioData = JSON.parse(JSON.stringify(DEFAULT_DATA));
 
         // 1. Cargar datos desde datos.json (si está en GitHub Pages) o usar caché local de prueba
@@ -924,33 +1222,33 @@
             document.getElementById('footer-nombre').textContent = p.nombre_completo;
 
             // Métricas Hero
-            const mColors = ['text-white', 'text-indigo-400', 'text-pink-400'];
+            const mColors = ['text-slate-900 dark:text-slate-100', 'text-indigo-700 dark:text-indigo-400', 'text-pink-700 dark:text-pink-400'];
             document.getElementById('hero-metricas').innerHTML = p.metricas.map((m, idx) => {
                 const isLast = idx === 2;
                 return `
                 <div class="${isLast ? 'col-span-2 sm:col-span-1 flex sm:block items-center justify-between' : ''} glass sm:bg-transparent sm:border-0 p-3.5 sm:p-0 rounded-xl">
                     <div>
-                        <p class="text-xl sm:text-3xl font-extrabold ${mColors[idx] || 'text-white'}">${m.valor}</p>
-                        <p class="text-xs text-slate-400 mt-0.5">${m.etiqueta}</p>
+                        <p class="text-xl sm:text-3xl font-extrabold ${mColors[idx] || 'text-slate-900 dark:text-slate-100'}">${m.valor}</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">${m.etiqueta}</p>
                     </div>
-                    ${isLast ? '<span class="sm:hidden material-icons-round text-pink-400/60 text-2xl">code</span>' : ''}
+                    ${isLast ? '<span class="sm:hidden material-icons-round text-pink-700/60 dark:text-pink-400/60 text-2xl">code</span>' : ''}
                 </div>`;
             }).join('');
 
             // Marquee duplicado para loop infinito
             const marqueeItems = [...data.marquee, ...data.marquee];
             document.getElementById('marquee-container').innerHTML = marqueeItems.map(item => `
-                <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-200 flex items-center gap-2">
+                <span class="px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full ${item.color}"></span> ${item.texto}
                 </span>
             `).join('');
 
             // Especialidades
             const espColorMap = {
-                indigo: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400',
-                purple: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
-                pink: 'bg-pink-500/15 border-pink-500/30 text-pink-400',
-                emerald: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                indigo: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-700 dark:text-indigo-400',
+                purple: 'bg-purple-500/15 border-purple-500/30 text-purple-700 dark:text-purple-400',
+                pink: 'bg-pink-500/15 border-pink-500/30 text-pink-700 dark:text-pink-400',
+                emerald: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-700 dark:text-emerald-400'
             };
             document.getElementById('especialidades-grid').innerHTML = data.especialidades.map(e => `
                 <div class="glass p-5 sm:p-6 rounded-2xl card-interactive flex sm:block items-start gap-4">
@@ -958,64 +1256,36 @@
                         <span class="material-icons-round">${e.icono}</span>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white">${e.titulo}</h3>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">${e.descripcion}</p>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">${e.titulo}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1.5 leading-relaxed">${e.descripcion}</p>
                     </div>
                 </div>
             `).join('');
 
-            // Proyectos
-            const projThemes = {
-                blue: { grad: 'from-blue-900/80 via-indigo-950 to-slate-950', badge: 'bg-indigo-500/20 border-indigo-400/30 text-indigo-300', sub: 'text-indigo-300' },
-                cyan: { grad: 'from-cyan-900/70 via-slate-900 to-slate-950', badge: 'bg-cyan-500/20 border-cyan-400/30 text-cyan-300', sub: 'text-cyan-300' },
-                pink: { grad: 'from-fuchsia-900/70 via-slate-900 to-slate-950', badge: 'bg-pink-500/20 border-pink-400/30 text-pink-300', sub: 'text-pink-300' },
-                purple: { grad: 'from-purple-900/70 via-slate-900 to-slate-950', badge: 'bg-purple-500/20 border-purple-400/30 text-purple-300', sub: 'text-purple-300' }
-            };
-            document.getElementById('proyectos-grid').innerHTML = data.proyectos.map(pr => {
-                const t = projThemes[pr.tema] || projThemes.blue;
-                const rightLink = pr.url
-                    ? `<a href="${pr.url}" target="_blank" class="text-slate-300 hover:text-white transition flex items-center gap-1 text-xs font-medium shrink-0">${pr.texto_url || 'Ver'} <span class="material-icons-round text-sm">open_in_new</span></a>`
-                    : `<span class="text-slate-400 text-xs font-medium">${pr.texto_url || ''}</span>`;
-                return `
-                <article class="glass rounded-2xl overflow-hidden card-interactive flex flex-col justify-between">
-                    <div>
-                        <div class="p-5 sm:p-6 bg-gradient-to-br ${t.grad} border-b border-slate-800">
-                            <div class="flex justify-between items-center gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full ${t.badge} border text-[11px] font-semibold">${pr.categoria}</span>
-                                ${rightLink}
-                            </div>
-                            <p class="text-[11px] uppercase tracking-wider ${t.sub} font-semibold">${pr.entidad}</p>
-                            <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${pr.titulo}</h3>
-                        </div>
-                        <div class="p-5 sm:p-6">
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">${pr.descripcion}</p>
-                        </div>
-                    </div>
-                    <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap gap-1.5 sm:gap-2">
-                        ${(pr.tags || []).map(tag => `<span class="px-2.5 py-1 rounded-md bg-slate-800/90 text-slate-300 text-[11px] sm:text-xs">${tag}</span>`).join('')}
-                    </div>
-                </article>`;
-            }).join('');
+            // El catálogo conserva sus filtros al guardar cambios desde el administrador.
+            projectCatalog = data.proyectos || [];
+            populateProjectEntities();
+            renderProjects();
 
             // Experiencia
             const expColors = {
-                indigo: { border: 'border-l-indigo-500', dot: 'bg-indigo-500', text: 'text-indigo-400' },
-                purple: { border: 'border-l-purple-500', dot: 'bg-purple-500', text: 'text-purple-400' },
-                blue: { border: 'border-l-blue-500', dot: 'bg-blue-500', text: 'text-blue-400' },
-                pink: { border: 'border-l-pink-500', dot: 'bg-pink-500', text: 'text-pink-400' },
-                cyan: { border: 'border-l-cyan-500', dot: 'bg-cyan-500', text: 'text-cyan-400' },
-                slate: { border: 'border-l-slate-500', dot: 'bg-slate-500', text: 'text-slate-400' }
+                indigo: { border: 'border-l-indigo-500', dot: 'bg-indigo-500', text: 'text-indigo-700 dark:text-indigo-400' },
+                purple: { border: 'border-l-purple-500', dot: 'bg-purple-500', text: 'text-purple-700 dark:text-purple-400' },
+                blue: { border: 'border-l-blue-500', dot: 'bg-blue-500', text: 'text-blue-700 dark:text-blue-400' },
+                pink: { border: 'border-l-pink-500', dot: 'bg-pink-500', text: 'text-pink-700 dark:text-pink-400' },
+                cyan: { border: 'border-l-cyan-500', dot: 'bg-cyan-500', text: 'text-cyan-700 dark:text-cyan-400' },
+                slate: { border: 'border-l-slate-500', dot: 'bg-slate-500', text: 'text-slate-600 dark:text-slate-400' }
             };
             document.getElementById('experiencia-list').innerHTML = data.experiencia.map(ex => {
                 const c = expColors[ex.color] || expColors.indigo;
                 const badges = (ex.periodos || []).map((per, idx) => {
                     if (ex.destacado) {
                         const style = idx === 0
-                            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-                            : 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/30';
+                            ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30'
+                            : 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30';
                         return `<span class="px-2.5 py-1 rounded-md ${style}">${per}</span>`;
                     }
-                    return `<span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300">${per}</span>`;
+                    return `<span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${per}</span>`;
                 }).join('');
 
                 return `
@@ -1024,28 +1294,28 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
                         <div>
                             <span class="text-[11px] font-bold uppercase tracking-wider ${c.text}">${ex.empresa}</span>
-                            <h3 class="text-base sm:text-lg ${ex.destacado ? 'font-extrabold' : 'font-bold'} text-white mt-0.5">${ex.cargo}</h3>
+                            <h3 class="text-base sm:text-lg ${ex.destacado ? 'font-extrabold' : 'font-bold'} text-slate-900 dark:text-slate-100 mt-0.5">${ex.cargo}</h3>
                         </div>
                         <div class="flex flex-wrap gap-1.5 text-[11px] font-semibold">${badges}</div>
                     </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">${ex.descripcion}</p>
+                    <p class="text-slate-700 dark:text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">${ex.descripcion}</p>
                 </div>`;
             }).join('');
 
             // Habilidades
-            const habTitleColors = { indigo: 'text-indigo-400', purple: 'text-purple-400', pink: 'text-pink-400' };
+            const habTitleColors = { indigo: 'text-indigo-700 dark:text-indigo-400', purple: 'text-purple-700 dark:text-purple-400', pink: 'text-pink-700 dark:text-pink-400' };
             document.getElementById('habilidades-list').innerHTML = data.habilidades.map(h => `
                 <div class="glass p-5 rounded-2xl space-y-3.5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider ${habTitleColors[h.color] || 'text-indigo-400'} flex items-center gap-2">
+                    <h3 class="text-xs font-bold uppercase tracking-wider ${habTitleColors[h.color] || 'text-indigo-700 dark:text-indigo-400'} flex items-center gap-2">
                         <span class="material-icons-round text-base">${h.icono}</span> ${h.grupo}
                     </h3>
                     <div class="flex flex-wrap gap-2">
                         ${(h.items || []).map((item, i) => {
                             const highlight = (h.color === 'indigo' && i === 0)
-                                ? 'bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 font-semibold'
+                                ? 'bg-indigo-500/15 border border-indigo-500/30 text-indigo-700 dark:text-indigo-200 font-semibold'
                                 : (h.color === 'purple' && i < 2)
-                                ? 'bg-purple-500/15 border border-purple-500/30 text-purple-200 font-semibold'
-                                : 'bg-slate-800 text-slate-200 font-medium';
+                                ? 'bg-purple-500/15 border border-purple-500/30 text-purple-700 dark:text-purple-200 font-semibold'
+                                : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-medium';
                             return `<span class="px-3 py-1.5 rounded-lg ${highlight} text-xs">${item}</span>`;
                         }).join('')}
                     </div>
@@ -1059,18 +1329,18 @@
                     return `
                     <div class="sm:col-span-2 glass p-4 sm:p-5 rounded-2xl border-l-4 ${isIndigo ? 'border-l-indigo-500' : 'border-l-emerald-500'} flex items-center justify-between gap-3">
                         <div>
-                            <span class="text-[11px] font-bold ${isIndigo ? 'text-indigo-400' : 'text-emerald-400'} uppercase">${ed.subtitulo}</span>
-                            <h3 class="font-bold text-white text-sm sm:text-base mt-0.5">${ed.titulo}</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">${ed.detalle}</p>
+                            <span class="text-[11px] font-bold ${isIndigo ? 'text-indigo-700 dark:text-indigo-400' : 'text-emerald-700 dark:text-emerald-400'} uppercase">${ed.subtitulo}</span>
+                            <h3 class="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base mt-0.5">${ed.titulo}</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">${ed.detalle}</p>
                         </div>
-                        <span class="px-3 py-1 rounded-full ${isIndigo ? 'bg-indigo-500/20 text-indigo-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs font-bold shrink-0">${ed.badge}</span>
+                        <span class="px-3 py-1 rounded-full ${isIndigo ? 'bg-indigo-500/20 text-indigo-700 dark:text-indigo-300' : 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300'} text-xs font-bold shrink-0">${ed.badge}</span>
                     </div>`;
                 }
                 return `
                 <div class="glass p-4 rounded-xl card-interactive">
-                    <p class="text-xs ${ed.destacado === 'pink' ? 'text-pink-400' : 'text-indigo-400'} font-semibold">${ed.subtitulo}</p>
-                    <h4 class="font-bold text-sm text-white mt-1">${ed.titulo}</h4>
-                    <p class="text-xs text-slate-400 mt-1">${ed.detalle}</p>
+                    <p class="text-xs ${ed.destacado === 'pink' ? 'text-pink-700 dark:text-pink-400' : 'text-indigo-700 dark:text-indigo-400'} font-semibold">${ed.subtitulo}</p>
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-slate-100 mt-1">${ed.titulo}</h4>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">${ed.detalle}</p>
                 </div>`;
             }).join('');
         }
@@ -1104,12 +1374,13 @@
             document.getElementById(tabId).classList.remove('hidden');
             document.querySelectorAll('.admin-tab').forEach(b => {
                 b.classList.remove('bg-indigo-600', 'text-white');
-                b.classList.add('text-slate-400');
+                b.classList.add('text-slate-600', 'dark:text-slate-400');
+                b.classList.remove('text-slate-400');
             });
             const activeBtn = document.getElementById('btn-' + tabId);
             if (activeBtn) {
                 activeBtn.classList.add('bg-indigo-600', 'text-white');
-                activeBtn.classList.remove('text-slate-400');
+                activeBtn.classList.remove('text-slate-400', 'text-slate-600', 'dark:text-slate-400', 'text-emerald-700', 'dark:text-emerald-400');
             }
         }
 
@@ -1134,21 +1405,21 @@
 
         function renderAdminProyectos() {
             document.getElementById('adm-proyectos-list').innerHTML = portfolioData.proyectos.map((pr, i) => `
-                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                <div class="p-4 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 space-y-3">
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-indigo-400 text-xs">Proyecto #${i + 1}</span>
-                        <button onclick="removeProyecto(${i})" class="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1">
+                        <span class="font-bold text-indigo-700 dark:text-indigo-400 text-xs">Proyecto #${i + 1}</span>
+                        <button onclick="removeProyecto(${i})" class="text-rose-700 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 text-xs flex items-center gap-1">
                             <span class="material-icons-round text-sm">delete</span> Eliminar
                         </button>
                     </div>
                     <div class="grid sm:grid-cols-2 gap-3">
-                        <input type="text" placeholder="Título del proyecto" value="${pr.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].titulo = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                        <input type="text" placeholder="Cliente / Entidad" value="${pr.entidad.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].entidad = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                        <input type="text" placeholder="Categoría (ej: UX/UI • Front-End)" value="${pr.categoria.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].categoria = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                        <input type="text" placeholder="Enlace URL (opcional)" value="${(pr.url || '').replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].url = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Título del proyecto" value="${pr.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].titulo = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                        <input type="text" placeholder="Cliente / Entidad" value="${pr.entidad.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].entidad = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                        <input type="text" placeholder="Categoría (ej: UX/UI • Front-End)" value="${pr.categoria.replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].categoria = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                        <input type="text" placeholder="Enlace URL (opcional)" value="${(pr.url || '').replace(/"/g, '&quot;')}" onchange="portfolioData.proyectos[${i}].url = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
                     </div>
-                    <textarea rows="2" placeholder="Descripción" onchange="portfolioData.proyectos[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">${pr.descripcion}</textarea>
-                    <input type="text" placeholder="Etiquetas separadas por coma" value="${(pr.tags || []).join(', ')}" onchange="portfolioData.proyectos[${i}].tags = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+                    <textarea rows="2" placeholder="Descripción" onchange="portfolioData.proyectos[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">${pr.descripcion}</textarea>
+                    <input type="text" placeholder="Etiquetas separadas por coma" value="${(pr.tags || []).join(', ')}" onchange="portfolioData.proyectos[${i}].tags = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
                 </div>
             `).join('');
         }
@@ -1174,19 +1445,19 @@
 
         function renderAdminExperiencia() {
             document.getElementById('adm-experiencia-list').innerHTML = portfolioData.experiencia.map((ex, i) => `
-                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                <div class="p-4 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 space-y-3">
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-emerald-400 text-xs">Experiencia #${i + 1}</span>
-                        <button onclick="removeExperiencia(${i})" class="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1">
+                        <span class="font-bold text-emerald-700 dark:text-emerald-400 text-xs">Experiencia #${i + 1}</span>
+                        <button onclick="removeExperiencia(${i})" class="text-rose-700 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 text-xs flex items-center gap-1">
                             <span class="material-icons-round text-sm">delete</span> Eliminar
                         </button>
                     </div>
                     <div class="grid sm:grid-cols-3 gap-3">
-                        <input type="text" placeholder="Cargo" value="${ex.cargo.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].cargo = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                        <input type="text" placeholder="Empresa / Entidad" value="${ex.empresa.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].empresa = this.value" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                        <input type="text" placeholder="Fechas (separadas por coma)" value="${(ex.periodos || []).join(', ')}" onchange="portfolioData.experiencia[${i}].periodos = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
+                        <input type="text" placeholder="Cargo" value="${ex.cargo.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].cargo = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                        <input type="text" placeholder="Empresa / Entidad" value="${ex.empresa.replace(/"/g, '&quot;')}" onchange="portfolioData.experiencia[${i}].empresa = this.value" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                        <input type="text" placeholder="Fechas (separadas por coma)" value="${(ex.periodos || []).join(', ')}" onchange="portfolioData.experiencia[${i}].periodos = this.value.split(',').map(s=>s.trim()).filter(Boolean)" class="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
                     </div>
-                    <textarea rows="2" placeholder="Descripción de funciones" onchange="portfolioData.experiencia[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">${ex.descripcion}</textarea>
+                    <textarea rows="2" placeholder="Descripción de funciones" onchange="portfolioData.experiencia[${i}].descripcion = this.value" class="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">${ex.descripcion}</textarea>
                 </div>
             `).join('');
         }
@@ -1210,11 +1481,11 @@
 
         function renderAdminEducacion() {
             document.getElementById('adm-educacion-list').innerHTML = portfolioData.educacion.map((ed, i) => `
-                <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 grid sm:grid-cols-12 gap-2.5 items-center">
-                    <input type="text" placeholder="Curso o Título" value="${ed.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].titulo = this.value" class="sm:col-span-5 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                    <input type="text" placeholder="Institución y Fecha" value="${ed.subtitulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].subtitulo = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                    <input type="text" placeholder="Duración / Detalle" value="${ed.detalle.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].detalle = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white">
-                    <button onclick="removeEducacion(${i})" class="sm:col-span-1 text-rose-400 hover:text-rose-300 flex justify-center">
+                <div class="p-3.5 rounded-xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 grid sm:grid-cols-12 gap-2.5 items-center">
+                    <input type="text" placeholder="Curso o Título" value="${ed.titulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].titulo = this.value" class="sm:col-span-5 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                    <input type="text" placeholder="Institución y Fecha" value="${ed.subtitulo.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].subtitulo = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                    <input type="text" placeholder="Duración / Detalle" value="${ed.detalle.replace(/"/g, '&quot;')}" onchange="portfolioData.educacion[${i}].detalle = this.value" class="sm:col-span-3 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
+                    <button onclick="removeEducacion(${i})" class="sm:col-span-1 text-rose-700 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 flex justify-center">
                         <span class="material-icons-round text-base">delete</span>
                     </button>
                 </div>
@@ -1285,13 +1556,13 @@
 
             if (!token) {
                 status.textContent = '⚠️ Ingresa tu Token de GitHub o usa el botón "Descargar datos.json".';
-                status.className = 'text-xs font-semibold text-amber-400';
+                status.className = 'text-xs font-semibold text-amber-700 dark:text-amber-400';
                 return;
             }
 
             localStorage.setItem('gh_cms_token', token);
             status.textContent = '⏳ Subiendo cambios a GitHub...';
-            status.className = 'text-xs font-semibold text-indigo-300';
+            status.className = 'text-xs font-semibold text-indigo-700 dark:text-indigo-300';
 
             try {
                 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/datos.json`;
@@ -1326,15 +1597,15 @@
                 if (putRes.ok) {
                     renderPortfolio(portfolioData);
                     status.textContent = '✅ ¡Publicado en GitHub! En ~40 segundos se verá actualizado para todos.';
-                    status.className = 'text-xs font-semibold text-emerald-400';
+                    status.className = 'text-xs font-semibold text-emerald-700 dark:text-emerald-400';
                 } else {
                     const err = await putRes.json();
                     status.textContent = `❌ Error de GitHub: ${err.message || 'Verifica el token y permisos'}`;
-                    status.className = 'text-xs font-semibold text-rose-400';
+                    status.className = 'text-xs font-semibold text-rose-700 dark:text-rose-400';
                 }
             } catch (err) {
                 status.textContent = '❌ Error de red al conectar con GitHub.';
-                status.className = 'text-xs font-semibold text-rose-400';
+                status.className = 'text-xs font-semibold text-rose-700 dark:text-rose-400';
             }
         }
 
