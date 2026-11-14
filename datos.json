@@ -141,6 +141,140 @@
         "Tailwind CSS",
         "Marketing Digital"
       ]
+    },
+    {
+      "categoria": "Sistema institucional",
+      "entidad": "ONPE",
+      "titulo": "CEMM",
+      "descripcion": "Plataforma tecnológica que permite a los miembros de mesa registrar y validar sus datos, así como registrar la modalidad de pago mediante la cual podrán recibir la compensación económica correspondiente por el ejercicio del cargo en los procesos electorales.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "blue",
+      "tags": [
+        "Miembros de mesa",
+        "Registro",
+        "Validación",
+        "Pagos electorales"
+      ]
+    },
+    {
+      "categoria": "Financiamiento de campaña",
+      "entidad": "ONPE",
+      "titulo": "CLARIDAD FP CAMPAÑA",
+      "descripcion": "Permite a los candidatos registrar, presentar y, de ser necesario, rectificar la información financiera de su campaña, correspondiente a aportes, ingresos y gastos. Asimismo, facilita a la ONPE la gestión de expedientes, la verificación de la información financiera presentada, el seguimiento de su estado y nivel de cumplimiento, así como la generación de reportes para su control y supervisión.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "cyan",
+      "tags": [
+        "Finanzas electorales",
+        "Aportes",
+        "Ingresos y gastos",
+        "Reportes"
+      ]
+    },
+    {
+      "categoria": "Capacitación virtual",
+      "entidad": "ONPE",
+      "titulo": "ONPEDUCA CAE",
+      "descripcion": "Permite capacitar virtualmente a los Actores Electorales (Miembros de Mesa, Electores, Personeros) sobre el proceso electoral.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "purple",
+      "tags": [
+        "Capacitación",
+        "Actores electorales",
+        "Formación virtual"
+      ]
+    },
+    {
+      "categoria": "Capacitación institucional",
+      "entidad": "ONPE",
+      "titulo": "ONPEDUCA CLARIDAD",
+      "descripcion": "Moderniza y optimiza los procesos de capacitación virtual dirigidos a los candidatos y organizaciones políticas obligadas a presentar su información financiera de aportes, ingresos y gastos en un proceso electoral y que por diversos motivos no pueden participar de las capacitaciones presenciales programadas por la ONPE a nivel nacional.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "pink",
+      "tags": [
+        "Capacitación virtual",
+        "Candidatos",
+        "Organizaciones políticas",
+        "ONPE"
+      ]
+    },
+    {
+      "categoria": "Gestión de accesos",
+      "entidad": "ONPE",
+      "titulo": "SASA",
+      "descripcion": "Sistema que permite gestionar los permisos y accesos a los diferentes sistemas de información de la institución.",
+      "url": "",
+      "texto_url": "Sistema de acceso",
+      "tema": "blue",
+      "tags": [
+        "Permisos",
+        "Accesos",
+        "Seguridad",
+        "Sistemas institucionales"
+      ]
+    },
+    {
+      "categoria": "Control de ingreso",
+      "entidad": "ONPE",
+      "titulo": "SIGAP",
+      "descripcion": "Sistema que gestiona y controla el ingreso de personal, proveedores, equipos y movilidad a todas las sedes de la ONPE. El sistema permite el registro y seguimiento de accesos del personal bajo distintas modalidades, tales como locación de servicios, terceros y practicantes, así como el control de ingresos de proveedores, visitas e ingresos extraordinarios asociados a comisiones de servicio o jornadas extendidas, contribuyendo a fortalecer la seguridad, el orden y la trazabilidad de los accesos institucionales.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "cyan",
+      "tags": [
+        "Ingresos",
+        "Seguridad",
+        "Accesos",
+        "Trazabilidad"
+      ]
+    },
+    {
+      "categoria": "Gestión administrativa electoral",
+      "entidad": "ONPE",
+      "titulo": "SIGEA",
+      "descripcion": "Sistema que automatiza la gestión administrativa de las ODPE durante los procesos electorales, permitiendo administrar requerimientos, ejecución presupuestal, pagos, rendiciones, viáticos, planillas y reportes. Centraliza la información y fortalece el control, seguimiento y trazabilidad de la gestión financiera y operativa.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "purple",
+      "tags": [
+        "ODPE",
+        "Presupuesto",
+        "Pagos",
+        "Rendiciones"
+      ]
+    },
+    {
+      "categoria": "Operaciones electorales",
+      "entidad": "ONPE",
+      "titulo": "SISGOE",
+      "descripcion": "Sistema que permite registrar, monitorear y controlar las operaciones electorales de las ODPE en tiempo real, centralizando información sobre actividades, maestro de mesas, personal electoral, directorio, línea de tiempo e informes operativos, para fortalecer la toma de decisiones y la gestión electoral.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "pink",
+      "tags": [
+        "Operaciones electorales",
+        "Monitoreo",
+        "Mesas",
+        "Informes"
+      ]
+    },
+    {
+      "categoria": "Financiamiento público directo",
+      "entidad": "ONPE",
+      "titulo": "CLARIDAD FPD",
+      "descripcion": "Plataforma que permite gestionar el Financiamiento Público Directo de las organizaciones políticas, desde la consulta de los montos asignados y la presentación de solicitudes, hasta el registro de la rendición de cuentas de los ingresos y gastos. Asimismo, facilita a la ONPE el seguimiento, validación y verificación de los expedientes, permitiendo aprobar, observar o rechazar las solicitudes y efectuar el control de las rendiciones de cuentas.",
+      "url": "",
+      "texto_url": "Sistema ONPE",
+      "tema": "blue",
+      "tags": [
+        "Financiamiento público",
+        "Rendición de cuentas",
+        "Expedientes",
+        "Validación"
+      ]
     }
   ],
   "experiencia": [
